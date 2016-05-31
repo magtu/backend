@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Router {
 	public static function process() {
 		$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -16,7 +18,8 @@ class Router {
 			return;
 		}
 		if ($uri_parts[0]=='api') {
-			
+			array_shift($uri_parts);
+			\Api\Api::route($uri_parts);
 		}
 		Router::page404();
 	}

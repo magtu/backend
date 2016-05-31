@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Search {
     public static function query($q) {
         $mysql = Mysql::get();
