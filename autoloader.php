@@ -2,12 +2,9 @@
 
 spl_autoload_register(function ($class)
 {
-    $paths = explode('\\', trim($class, '\\'));
-    $path = '';
-    $count = count($paths);
-    for ($i=0; $i < $count - 1 ; $i++) { 
-        $path .= $paths[$i].'/';
+    $path = str_replace('\\', '/', trim($class, '\\')).'.php';
+    if (!file_exists(__DIR__.'/'.$path)) {
+        return;
     }
-    $path .= $paths[$count-1].'.php';
     require_once $path;
 });

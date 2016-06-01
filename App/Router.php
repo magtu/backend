@@ -14,12 +14,24 @@ class Router {
 		//g437 or t115
 		if (count($uri_parts) == 1) {
 			$url_path = rawurldecode($uri_parts[0]);
-			echo json_encode(Search::query($url_path), JSON_UNESCAPED_UNICODE);
+			$search_result = Search::query($url_path);
+			//открыть страницу группы или страницу с поиском
+			echo json_encode($search_result, JSON_UNESCAPED_UNICODE);
 			return;
 		}
-		if ($uri_parts[0]=='api') {
-			array_shift($uri_parts);
-			\Api\Api::route($uri_parts);
+		// api/v1/...
+		if (count($uri_parts) >= 2 and $uri_parts[0]=='api') {
+			$prefix = substr($uri_parts[1],0,1);
+			$version = intval(substr($uri_parts[1], 1));
+			$classname = '\\Api\\v'.$version.'\\ApiController';
+			if ($prefix == 'v' and $version > 0 and class_exists($classname)) {
+				$api = new $classname();
+				$api->process(array_slice($uri_parts, 2));
+				return;
+			} else {
+				Router::page404();
+				return;
+			}
 		}
 		Router::page404();
 	}
