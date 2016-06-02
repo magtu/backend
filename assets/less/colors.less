@@ -1,0 +1,94 @@
+@opacity: 70%;
+//@init-color:#1A5573;
+@init-color: #1A5573;
+@head: @init-color;
+//@head-border: #356984;
+@head-border: lighten(saturate(@init-color, -20%), 14%);
+//@week: #2bca54;
+@week: lighten(spin(@init-color, -65), 20%);
+//@day-head: #267ba6;
+@day-head: lighten(@init-color, 12%);
+//@current-less:#D49AFF;
+@current-less: lighten(saturate(spin(@init-color, 74), 37%), 52%);
+//@empty: #eaeaea;
+@empty: #eaeaea;
+//@num: #ffc342;
+@num: lighten(saturate(spin(@init-color,-159),37%),35%);
+//@location: #53c771;
+@location: lighten(saturate(spin(@init-color,-64),-12%),27%);
+//@warning: #ea3d3d;
+@warning: lighten(saturate(spin(@init-color,-200),17%),30%);
+//@group-1: #4F67FF;
+@group-1: lighten(saturate(spin(@init-color,32),37%),30%);
+//@group-2: #54FF4F;
+@group-2: lighten(saturate(spin(@init-color,-82),37%),30%);
+//@group-3: #FF5757;
+@group-3: lighten(saturate(spin(@init-color,-200),37%),32%);
+
+@color-base: hsl(269, 68%, 40%);
+@color_1: @color-base;
+@color_2: saturate(spin(@color-base, -50), 40%);
+@color_3: saturate(spin(@color-base, -116), 39%);
+@color_1-light: lighten(@color_1, 10%);
+@color_2-light: lighten(@color_2, 10%);
+@color_3-light: lighten(@color_3, 10%);
+@color_1-opacity: fade(@color_1, @opacity);
+@color_2-opacity: fade(@color_2, @opacity);
+@color_3-opacity: fade(@color_3, @opacity);
+@color_1-light-opacity: lighten(fade(@color_1, @opacity), 10%);
+@color_2-light-opacity: lighten(fade(@color_2, @opacity), 10%);
+@color_3-light-opacity: lighten(fade(@color_3, @opacity), 10%);
+
+@gradient-color-1: lighten(saturate(spin(@color-base, -37), 70%), 38%);
+@gradient-color-2: lighten(saturate(spin(@color-base, -48), 70%), 43%);
+
+.delta {
+  display: none;
+  width: 100px;
+  height: 100px;
+  background-color: @color_3-light-opacity;
+  border: 3px solid @color_3-light-opacity;
+}
+
+.color_1, .color_2 {
+  color: #fff;
+  &a {
+    color: #fff;
+    &:focus {
+      color: #fff;
+    }
+  }
+}
+
+.color_1 {
+  background: @color_1;
+  &.hover:hover {
+    background: @color_1-light;
+  }
+}
+
+.color_2 {
+  background: @color_2;
+  &.hover:hover {
+    background: @color_2-light;
+  }
+  &.opacity {
+    color: @color_2-opacity;
+    &.hover:hover {
+      background: @color_2-light-opacity;
+    }
+  }
+}
+
+.color_3 {
+  background: @color_3;
+  &.hover:hover {
+    background: @color_3-light;
+  }
+  &.opacity {
+    color: @color_3-opacity;
+    &.hover:hover {
+      background: @color_3-light-opacity;
+    }
+  }
+}

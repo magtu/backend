@@ -1,0 +1,231 @@
+.day > table tr {
+  display: block;
+  background-color: #fff;
+  border: 1px solid #257AA5;
+  border-top: none;
+  position: relative;
+  transition: .3s ease-in;
+}
+
+.day > table tr.currentLess:not(.empty) {
+  outline: 2px solid @current-less;
+  z-index: 2;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  position: relative;
+  left: -1px;
+  top: -1px;
+  border: none;
+}
+
+.day > table tr > td {
+  width: 1000px;
+}
+
+.less {
+  padding: 7px 80px 6px 25px;
+  width: 100%;
+  word-break: break-word;
+  position: relative;
+  cursor: pointer;
+  .ad {
+    color: #000;
+    font-style: italic;
+    line-height: 1;
+    margin-top: 4px;
+    font-weight: 100;
+  }
+  .teacher {
+    float: right;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    opacity: 0.9;
+  }
+  .title {
+    text-transform: capitalize;
+    color: #000000;
+    line-height: 12px;
+    text-align: center;
+  }
+}
+
+.less.group-1 {
+  background-color: fade(@group-1, 18%);
+  &:after {
+    // content: 'Подгруппа 1';
+  }
+}
+
+.less.group-2 {
+  background-color: fade(@group-2, 28%);
+  &:after {
+    // content: 'Подгруппа 2';
+  }
+}
+
+.less.group-3 {
+  background-color: fade(@group-3, 18%);
+  &:after {
+    // content: 'Подгруппа 3';
+  }
+}
+
+.aud {
+  position: absolute;
+  background: @location;
+  border-top-left-radius: 25px;
+  color: #fff;
+  bottom: 0;
+  right: 0;
+  line-height: 1.8;
+  padding: 0 6px 0 13px;
+  z-index: 1;
+}
+
+//============================
+// HIDE EMPTY LESSONS
+//============================
+
+//tr:not(.empty) + .empty,
+//tr:not(.empty) + .empty + .empty,
+//tr:not(.empty) + .empty + .empty + .empty,
+//tr:not(.empty) + .empty + .empty + .empty + .empty,
+//tr:not(.empty) + .empty + .empty + .empty + .empty + .empty,
+//tr:not(.empty) + .empty + .empty + .empty + .empty + .empty + .empty,
+//tr:not(.empty) + .empty + .empty + .empty + .empty + .empty + .empty + .empty {
+//  display: none !important;
+//}
+.day > table tr.empty {
+  height: 17px;
+  background: #EAEAEA;
+}
+.empty+.empty {
+  display: none;
+}
+
+.day:not(.haveLess) .empty:not(:first-child) {
+  display: none;
+}
+.day:not(.haveLess) .empty:first-child{
+  height: 40px;
+  background: #fff;
+  &:before {
+    content: 'Нет занятий';
+    color: #20D840;
+    text-align: center;
+    font-size: 15px;
+    text-transform: uppercase;
+    line-height: 2.6;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+//============================
+// CSS NUMBERING LESSONS
+//============================
+
+.day > table tr > td.haveLess:before {
+  content: '';
+  background-color: @num;
+  color: #FFF;
+  position: absolute;
+  border-radius: 0 0 27px 0;
+  padding-right: 2px;
+  height: 20px;
+  width: 20px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 16px;
+  font-size: 10px;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+}
+
+.day > table tr > td.haveLess.less-1:before {
+  content: '1';
+}
+
+.day > table tr > td.haveLess.less-2:before {
+  content: '2';
+}
+
+.day > table tr > td.haveLess.less-3:before {
+  content: '3';
+}
+
+.day > table tr > td.haveLess.less-4:before {
+  content: '4';
+}
+
+.day > table tr > td.haveLess.less-5:before {
+  content: '5';
+}
+
+.day > table tr > td.haveLess.less-6:before {
+  content: '6';
+}
+
+.day > table tr > td.haveLess.less-7:before {
+  content: '7';
+}
+
+.day > table tr > td.haveLess.less-8:before {
+  content: '8';
+}
+
+.day > table tr > td.haveLess:after {
+  content: ' ';
+  font-size: 12px;
+  font-style: normal;
+  color: #A5A5A5;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0px 5px;
+  line-height: 1.6;
+  height: 20px;
+}
+
+.day > table tr > td.haveLess.less-1:after {
+  content: '8:00 – 9:30';
+}
+
+.day > table tr > td.haveLess.less-2:after {
+  content: '9:40 – 11:20';
+}
+
+.day > table tr > td.haveLess.less-3:after {
+  content: ' 11:20 – 12:50';
+}
+
+.day > table tr > td.haveLess.less-4:after {
+  content: '13:30 – 15:00';
+}
+
+.day > table tr > td.haveLess.less-5:after {
+  content: '15:10 – 16:40';
+}
+
+.day > table tr > td.haveLess.less-6:after {
+  content: '16:50 – 18:20';
+}
+
+.day > table tr > td.haveLess.less-7:after {
+  content: '18:30 – 20:00';
+}
+
+.day > table tr > td.haveLess.less-8:after {
+  content: '20:10 – 21:40';
+}
+
+.day > table tr.currentLess > td.haveLess:after {
+  color: #5E60F9;
+}

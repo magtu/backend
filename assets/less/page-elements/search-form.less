@@ -1,0 +1,39 @@
+.group-search {
+  max-width: 500px;
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  background: #fff9fc;
+  border-radius: 5px;
+  box-shadow: 2px 5px 10px rgba(0,0,0,0.18);
+  //background-image: url(http://sewin.net/uploads/posts/2014-08/1407420522_3061827.jpg);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.search-section {
+  display: none;
+  margin: 8% auto 0;
+  position: relative;
+  max-width: 500px;
+  &:before {
+    content: '';
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0.4;
+    border-radius: 5px;
+    z-index: 0;
+  }
+}
+
+form.search-form {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  height: 200px;
+  text-align: center;
+  width: 1000px;
+}
