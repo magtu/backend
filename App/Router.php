@@ -7,13 +7,14 @@ class Router {
 		$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		//index
 		if ($url_path == '/') {
-			echo 'schedule html';
+			echo '<link rel="stylesheet" href="style.css">';
 			return;
 		}
 		$uri_parts = explode('/', trim($url_path, ' /'));
-		//g437 or t115
+		//g437 or t115 or Эавб
 		if (count($uri_parts) == 1) {
 			$url_path = rawurldecode($uri_parts[0]);
+			$url_path = str_replace('_',' ', $url_path);
 			$search_result = Search::query($url_path);
 			//открыть страницу группы или страницу с поиском
 			echo json_encode($search_result, JSON_UNESCAPED_UNICODE);

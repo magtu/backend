@@ -1,1 +1,7 @@
 config.php
+
+node_modules
+bower_components
+build
+/public/css
+/public/js
