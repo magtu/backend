@@ -31,10 +31,6 @@
 </head>
 <body>
 
-<?php
-include 'imgRandom.php';
-?>
-
 <main>
     <div class="page-wrap">
         <div class="content clearfix">
@@ -59,122 +55,25 @@ include 'imgRandom.php';
             <div class="head-min clearfix">
                 <div class="date-wrap">
                     <div class="time">
-                        <div class="hours"></div>
-                        <span>:</span>
-
-                        <div class="minutes"></div>
+                        <div class="hours"></div><span>:</span><div class="minutes"></div>
                     </div>
                     <div class="weekday"></div>
                     <div class="date"></div>
                 </div>
                 <div class="group-name"></div>
-            </div>
-            
-            
-
+            </div>         
             <div class="main-table-wrap">
-                
-<?
-$days = array(
-    'Понедельник',
-    'Вторник',
-    'Среда',
-    'Четверг',
-    'Пятница',
-    'Суббота'
-);
-for ($w = 0; $w < 2; $w++) {
-    if ($w == 0) {
-?>
-        <div class="week" id="week-1">
-        <div class="week-name">Нечётная</div>
-    <?
-    } else {
-?>
-        <div class="week hide" id="week-2">
-        <div class="week-name">Чётная</div>
-    <?
-    }
-?>
-    <div class="main-table">
-        <table>
-            <tr>
                 <?
-    for ($d = 0; $d < 6; $d++) {
-?>
-                    <td class="col-xs-12 col-sm-6 col-md-4">
-                        <div class="day" id="day-<?= $w + 1 ?>-<?= $d + 1 ?>">
-                            <div class="day-name"><?= $days[$d] ?></div>
-                            <table>
-                                <?
-        $lessons = $groupSchedule[$w]['days'][$d]['events'];
-        for ($l = 1; $l <= 8; $l++) {
-            $haveLess = false;
-            foreach ($lessons[$l] as $lesson) {
-                $haveLess = true;
-            }
-            if ($haveLess) {
-?>
-                                          <tr>
-                                            <td class="less-<?= $l ?> haveLess" id="less-<?= $w . "-" . $d . "-" . $l ?>">
-                                                <div class="less-wrap">
-            <?
-                foreach ($lessons[$l] as $lesson) {
-?>
-
-                                                    <div class="less group-<?= $lesson['subgroup'] ?>">
-                                                        <div class="title"><?= $lesson['course'] ?></div>
-                                                        <div class="ad clearfix">
-                                                        <?= $lesson['type'] ?>
-                                                        <div class="teacher"><?= $lesson['teacher'] ?></div>
-                                                        </div>
-                                                        <div class="aud"><?= $lesson['location'] ?></div>
-                                                    </div>
-
-                                    <?
-                }
-?>
-                                               </div>
-                                            </td>
-                                         </tr>
-                <?
-            } else {
-                echo "<tr class='empty'></tr>";
-            }
-        }
-?>
-                            </table>
-                        </div>
-                    </td>
+                    include "templates/html/week.php";
+                    for ($w = 0; $w < 2; $w++) {
+                    ?>
+                        <div class="week" id="week-<?=$w+1;?>">
+                        <div class="week-name"><?=groupSchedule[$w]['week'];?></div>
                     <?
-        if ($d == 1 || $d == 3) {
-?>
-                        <td class="col-sm-12 visible-sm separator"></td>
-                    <?
-        }
-?>
-                    <?
-        if ($d == 2) {
-?>
-                        <td class="col-md-12 visible-md visible-lg separator"></td>
-                        <?
-        }
-        
-    }
-?>
-            </tr>
-        </table>
-    </div>
-    </div>
-<?
-}
-?>
-                
-            </div>
-            
-            
-            
-            
+                        renderWeek($groupSchedule[$w]);
+                    }
+                ?>
+            </div>      
             <div class="subgroup-btns">
                 <div class="sb subgroup-btn-0">Все подгруппы</div>
                 <div class="sb subgroup-btn-1">Подгруппа 1</div>
@@ -195,10 +94,8 @@ for ($w = 0; $w < 2; $w++) {
             </aside>
             <div class="warning-msg">
                 <span class="msg-h">Внимание!</span> Сайт находится на стадии разработки, поэтому возможны ошибки в
-                расписании. Напишите, если обнаружили неточности: <a href="https://vk.com/topic-114684821_33345488"
-                                                                     target="_blank">ССЫЛКА</a>
+                расписании. Напишите, если обнаружили неточности: <a href="https://vk.com/topic-114684821_33345488" target="_blank">ССЫЛКА</a>
             </div>
-
         </div>
     </div>
 </main>

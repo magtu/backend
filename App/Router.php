@@ -7,7 +7,8 @@ class Router {
 		$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		//index
 		if ($url_path == '/') {
-			echo '<link rel="stylesheet" href="style.css">';
+			$groupSchedule = Router::getSchdule(15);
+			echo json_encode($groupSchedule, JSON_UNESCAPED_UNICODE);
 			return;
 		}
 		$uri_parts = explode('/', trim($url_path, ' /'));
