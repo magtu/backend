@@ -1,5 +1,5 @@
 <?php
 
-include __DIR__.'/../App.php';
+require_once __DIR__.'/../autoloader.php';
 
-\App\Router::process();
+\Magtu\App\Router::process();
