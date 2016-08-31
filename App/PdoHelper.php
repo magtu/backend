@@ -1,21 +1,22 @@
 <?php
 
-namespace Magtu\App;
+namespace App;
 
 class PdoHelper
 {
   private static $dbh = null;
   public static function get()
   {
-    if ($dbh) {
-      return $dbh;
+    if (PdoHelper::$dbh) {
+      return PdoHelper::$dbh;
     }
     try {
-      $dbh = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME,DB_USER,DB_PASS);
+      require_once '../config.php';
+      PdoHelper::$dbh = new \PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=UTF8',DB_USER,DB_PASS);
     } catch(PDOException $e) {
       print "Error!: " . $e->getMessage() . "<br/>";
       die();
     }
-    return $dbh;
+    return PdoHelper::$dbh;
   }
 }
