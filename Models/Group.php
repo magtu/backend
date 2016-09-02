@@ -7,14 +7,22 @@ class Group
     public static function list() {
         $q = 'SELECT id, name FROM groups';
         $smbt = \App\PdoHelper::get()->query($q);
-        return $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        for ($i=0;$i<count($res);$i++){
+            $res[$i]['id'] = intval($res[$i]['id']);
+        }
+        return $res;
     }
     public static function search($prefix)
     {
         $q = 'SELECT id, name FROM groups WHERE name LIKE :name';
         $smbt = \App\PdoHelper::get()->prepare($q);
         $smbt->execute(array('name' => $prefix.'%'));
-        return $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        for ($i=0;$i<count($res);$i++){
+            $res[$i]['id'] = intval($res[$i]['id']);
+        }
+        return $res;
     }
     public static function details($id)
     {
