@@ -13,8 +13,11 @@ class ApiController extends \Api\BaseApiController {
         if (!(method_exists($this, $methodName) && is_callable($callable))) {
             $this->errorResult(404, 'api method not found');
         }
-
-        call_user_func($callable, array_slice($uri_paths, 1));
+        try {
+            call_user_func($callable, array_slice($uri_paths, 1));
+        } catch (\Exception $e) {
+            $this->errorResult($e->getCode(), $e->getMessage());
+        }
     }
 
     function groupsMethod($uri_paths) {
@@ -34,9 +37,15 @@ class ApiController extends \Api\BaseApiController {
         $this->jsonResult(\Models\Group::search($_GET['q']));
     }
     function groupDetailMethod($id, $uri_paths) {
-        if (count($uri_paths)>0 && $uri_paths[0] == 'schedule') {
-            $this->groupScheduleMethod($id, $uri_paths);
-            return;
+        if (count($uri_paths)>0) {
+            if ($uri_paths[0] == 'schedule') {
+                $this->groupScheduleMethod($id, array_slice($uri_paths,1));
+                return;
+            }
+            if ($uri_paths[0] == 'updates') {
+                $this->groupUpdatesMethod($id, array_slice($uri_paths,1));
+                return;
+            }
         }
         $this->jsonResult(\Models\Group::details($id));
     }
@@ -46,6 +55,15 @@ class ApiController extends \Api\BaseApiController {
             $this->errorResult(400, 'bad parametr group id');
         }
         $this->jsonResult($schedule);
+    }
+    function groupUpdatesMethod($id, $uri_paths) {
+        if (count($uri_paths)>0) {
+            if ($uri_paths[0] == 'schedule') {
+                $this->jsonResult(array('updated_at' => \Models\Group::scheduleUpdates($id)));
+                return;
+            }
+        }
+        throw new \Exception("incorrect request url", 404);
     }
 
     function teachersMethod($uri_paths) {

@@ -266,7 +266,7 @@ $(function () {
                     }
                 },
                 ajax: {
-                    url: 'http://magtu/api/v1/groups/',
+                    url: '/api/v1/groups/',
                     dataType: "json",
                     data: function (params) {
                         return {
@@ -479,11 +479,11 @@ $(function () {
                     getSchedule(group_id);
                 }
             });
-
+            
 
             function getSchedule(group_id) {
                 $.ajax({
-                    url: "http://magtu/api/v1/groups/" + group_id + "/schedule",
+                    url: "/api/v1/groups/" + group_id + "/schedule",
                     dataType: "json",
                     success: function (data) {
                         //console.log(data);

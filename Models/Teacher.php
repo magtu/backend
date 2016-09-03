@@ -7,18 +7,26 @@ class Teacher
     public static function list() {
         $q = 'SELECT id, name FROM teachers';
         $smbt = \App\PdoHelper::get()->query($q);
-        return $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        for ($i=0;$i<count($res);$i++){
+            $res[$i]['id'] = intval($res[$i]['id']);
+        }
+        return $res;
     }
     public static function search($prefix)
     {
         $q = 'SELECT id, name FROM teachers WHERE name LIKE :name';
         $smbt = \App\PdoHelper::get()->prepare($q);
         $smbt->execute(array('name' => $prefix.'%'));
-        return $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        for ($i=0;$i<count($res);$i++){
+            $res[$i]['id'] = intval($res[$i]['id']);
+        }
+        return $res;
     }
     public static function details($id)
     {
-        return 'details for group with id='.$id;
+        return 'details for teacher with id='.$id;
     }
     public static function schedule($id) {
         $weeks = WeekType::all();
@@ -37,7 +45,7 @@ class Teacher
             ORDER BY `week_id`, `day_id`, `event_index`, `subgroup`");
         $db_res = $smbt->fetchAll(\PDO::FETCH_OBJ);
         if (count($db_res) == 0) {
-            return false;
+            throw new Exception("Teacher with id=$id not found", 404);
         }
         $raw_result = array(1=>array(), array());
         for ($i = 0; $i < count($db_res); $i++) {

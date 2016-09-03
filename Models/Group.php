@@ -45,7 +45,7 @@ class Group
             ORDER BY `week_id`, `day_id`, `event_index`, `subgroup`");
         $db_res = $smbt->fetchAll(\PDO::FETCH_OBJ);
         if (count($db_res) == 0) {
-            return false;
+            throw new Exception("Group with id=$id not found", 404);
         }
         $raw_result = array(1=>array(), array());
         for ($i = 0; $i < count($db_res); $i++) {
@@ -87,5 +87,15 @@ class Group
             ];
         }
         return $result;
+    }
+    public static function scheduleUpdates($id) {
+        $q = 'SELECT `updated_at` FROM `groups` WHERE `id`='.$id;
+        $smbt = \App\PdoHelper::get()->query($q);
+        $res = $smbt->fetch(\PDO::FETCH_ASSOC);
+        if (!$res){
+            throw new \Exception("Group with id=$id not found", 404);
+        }
+        $updated = strtotime($res['updated_at']);
+        return $updated;
     }
 }
