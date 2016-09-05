@@ -77,8 +77,8 @@
             <div class="subgroup-btns">
                 <div class="sb subgroup-btn-0">Все подгруппы</div>
                 <div class="sb subgroup-btn-1">Подгруппа 1</div>
-                <div class="sb subgroup-btn-2">Подгруппа 2</div>
-                <div class="sb subgroup-btn-3">Подгруппа 3</div>
+                <div class="sb subgroup-btn-2">Подгруппа 8</div>
+                <div class="sb subgroup-btn-3">Подгруппа 4</div>
             </div>
             <aside>
                 <div class="aside-wrap">

@@ -18,6 +18,9 @@ window.Application = {
                 object.scrollFunctions();
             });
         }
+        $(document).bind('getScheduleComplete', function(){
+            object.afterTableLoad();
+        });
     }
 };
 

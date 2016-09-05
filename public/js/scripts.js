@@ -78,13 +78,13 @@ $(function () {
         afterTableLoad: function () {
             this.viewTable();
             this.date();
+            this.changeWeek();
             this.select2init();
             this.hideGroupsComponent();
-            this.changeWeek();
             //this.openHomework();
             this.editArea();
             this.setToCurrent();
-            this.editMode();
+            // this.editMode();
         },
 
         hideSearch: function () {
@@ -240,7 +240,7 @@ $(function () {
             });
         },
         select2init: function () {
-            $('#group-select,#head-group-select').select2({
+            $('#group-select, #head-group-select').select2({
                 multiple: true,
                 maximumSelectionLength: 1,
                 minimumInputLength: 1,
@@ -266,7 +266,7 @@ $(function () {
                     }
                 },
                 ajax: {
-                    url: 'http://magtu/api/v1/groups/',
+                    url: '/api/v1/groups/',
                     dataType: "json",
                     data: function (params) {
                         return {
@@ -458,22 +458,26 @@ $(function () {
                 getTeacherSchedule(localStorage.getItem('teacher_id_16022016'));
             }
 
-            $('select#teacher-select').on('change', function () {
+            $('#teacher-select, #head-teacher-select').on('change', function () {
                 var select = $(this);
                 if (select.val()) {
                     var teacher_id = select.val();
                     var teacher_name = select.select2('data')[0].text;
+                    localStorage.removeItem('group_id_16022016');
+                    localStorage.removeItem('group_name');
                     localStorage.setItem('teacher_id_16022016', teacher_id);
                     localStorage.setItem('teacher_name', teacher_name);
                     getTeacherSchedule(teacher_id);
                 }
             });
 
-            $('select#group-select').on('change', function () {
+            $('#group-select, #head-group-select').on('change', function () {
                 var select = $(this);
                 if (select.val()) {
                     var group_id = select.val();
                     var group_name = select.select2('data')[0].text;
+                    localStorage.removeItem('teacher_id_16022016');
+                    localStorage.removeItem('teacher_name');
                     localStorage.setItem('group_id_16022016', group_id);
                     localStorage.setItem('group_name', group_name);
                     getSchedule(group_id);
@@ -483,7 +487,7 @@ $(function () {
 
             function getSchedule(group_id) {
                 $.ajax({
-                    url: "http://magtu/api/v1/groups/" + group_id + "/schedule",
+                    url: "/api/v1/groups/" + group_id + "/schedule",
                     dataType: "json",
                     success: function (data) {
                         //console.log(data);

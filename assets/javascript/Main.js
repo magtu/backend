@@ -5,10 +5,11 @@ $(function () {
         run: function () {
             this.footerMove();
             this.select2init();
-            this.date();
-            this.hideGroupsComponent();
-            this.changeWeek();
-            this.setToCurrent();
+            this.scheduleBuilder();
+            this.hideSearch();
+            if (!localStorage.getItem('group_id_16022016')  && !localStorage.getItem('teacher_id_16022016')) {
+                this.viewSearch();
+            }
         },
         resizeFunctions: function () {
             if ($(window).outerWidth() > 560) {
@@ -20,6 +21,18 @@ $(function () {
         scrollFunctions: function () {
             this.headMinification();
         },
+        afterTableLoad: function () {
+            this.viewTable();
+            this.date();
+            this.changeWeek();
+            this.select2init();
+            this.hideGroupsComponent();
+            //this.openHomework();
+            this.editArea();
+            this.setToCurrent();
+            // this.editMode();
+        },
+
         hideSearch: function () {
             $('.group-name').on('click', function () {
                 if ($(window).outerWidth() <= 560) {
@@ -40,6 +53,17 @@ $(function () {
                 }
             });
         },
+
+        editMode: function () {
+            var md5_check = '3ab48f05066798b72f909e0dfcda9bc6';
+            $(document).keyup(function (eventObject) {
+                if (eventObject.which == 13 && md5($.trim($('.head-search-form .select2-search__field').val())) == md5_check) {
+                    alert('Режим редактирования активирован!');
+                    $('.head-search-form .select2-search__field').val(null);
+                }
+            });
+        },
+
 
         setToCurrent: function () {
             scrollToCurrentDay();
@@ -114,12 +138,59 @@ $(function () {
                 $('.head-min').slideUp('min');
             }
         },
+        viewTable: function () {
+            $('.search-section').fadeOut();
+            setTimeout(function () {
+                $('main').fadeIn();
+            }, 500);
+        },
+        viewSearch: function () {
+            $('.search-section').fadeIn();
+        },
+        editArea: function () {
+            function starEditing(editBtnElement) {
+                var _this = $(editBtnElement);
+                var editAreaWrap = _this.parent();
+                var editArea = editAreaWrap.find('.editArea');
+                var text = $.trim(editArea.text());
+                editArea.after('<textarea class="edit-area">' + text + '</textarea>');
+                editArea.detach();
+                _this.addClass('hide');
+                _this.parent().find('.refresh-btn').addClass('hide');
+                _this.parent().find('.submit-edit-btn').removeClass('hide');
+            }
+
+            function endEditing(sbmtEditBtnElement) {
+                var _this = $(sbmtEditBtnElement);
+                var editAreaWrap = _this.parent();
+                var editText = editAreaWrap.find('textarea.edit-area');
+                if (editText) {
+                    var text = $.trim(editText.val());
+                    editText.after('<div class="editArea"></div>');
+                    editText.detach();
+                    editAreaWrap.find('.editArea').text(text);
+                    _this.addClass('hide');
+                    _this.parent().find('.edit-btn').removeClass('hide');
+                    _this.parent().find('.refresh-btn').removeClass('hide');
+                }
+            }
+
+            $('.edit-btn').on('click', function () {
+                $('.submit-edit-btn:not(".hide")').each(function () {
+                    endEditing(this)
+                });
+                starEditing(this)
+            });
+            $('.submit-edit-btn').on('click', function () {
+                endEditing(this)
+            });
+        },
         select2init: function () {
-            $('.head-select,.head-group-select').select2({
+            $('#group-select, #head-group-select').select2({
                 multiple: true,
                 maximumSelectionLength: 1,
                 minimumInputLength: 1,
-                placeholder: "Найди свою группу...",
+                placeholder: "Найди группу...",
                 language: {
                     inputTooShort: function () {
                         return 'Введите хотя бы 1 букву';
@@ -174,10 +245,75 @@ $(function () {
                     }
                 }
             });
+            $('#teacher-select,#head-teacher-select').select2({
+                multiple: true,
+                maximumSelectionLength: 1,
+                minimumInputLength: 1,
+                placeholder: "Найди преподавателя...",
+                language: {
+                    inputTooShort: function () {
+                        return 'Введите хотя бы 1 букву';
+                    },
+                    maximumSelected: function () {
+                        return 'Ошибка. Попробуёте ещё раз';
+                    },
+                    searching: function () {
+                        return 'Поиск…';
+                    },
+                    noResults: function () {
+                        return 'Совпадений не найдено';
+                    },
+                    loadingMore: function () {
+                        return 'Загрузка данных…';
+                    },
+                    errorLoading: function () {
+                        return 'Невозможно загрузить результаты';
+                    }
+                },
+                ajax: {
+                    url: '/api/v1/teachers/',
+                    dataType: "json",
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    results: function (data) {
+                        return {results: data, text: 'name'};
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    formatSelection: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            });
         },
         changeWeek: function () {
             $('.week-name').on('click', function () {
                 $('.week').toggleClass('hide');
+            });
+        },
+        openHomework: function () {
+            $(".less").on('click', function () {
+                $(".info").not($(this).next(".info")).slideUp();
+                $(this).next(".info").slideToggle();
             });
         },
         hideGroupsComponent: function () {
@@ -243,7 +379,7 @@ $(function () {
             });
         },
         date: function () {
-            var days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+            var days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
             var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря',];
 
             function date() {
@@ -258,37 +394,193 @@ $(function () {
             setInterval(date, 30000);
         },
 
-        
-            // function allocateLessons(data) {
-            //     for (var w = 0; w < data.length; w++) {
-            //         var week = data[w];
-            //         for (var d = 0; d < week['days'].length; d++) {
-            //             var day = week['days'][d];
-            //             for (var l = 0; l < day['events'].length; l++) {
-            //                 var event = day['events'][l];
-            //                 var lessonHtml = '' +
-            //                     '<div class="less-wrap">' +
-            //                     '<div class="less group-' + event['subgroup'] + '">' +
-            //                     '<div class="title">' + event['course'] + '</div>' +
-            //                     '<div class="ad clearfix">' + event['type'] + '' +
-            //                     '<div class="teacher">' + event['teacher'] + '</div>' +
-            //                     '</div>' +
-            //                     '<div class="aud">' + event['location'] + '</div>' +
-            //                     '</div>';
-            //                 var lessonCell = $('#less-' + week['week_id'] + '-' + day['day_id'] + '-' + event['event_index']);
-            //                 var dayCell = $('#day-' + week['week_id'] + '-' + day['day_id']);
-            //                 lessonCell.addClass('haveLess');
-            //                 dayCell.addClass('haveLess');
-            //                 lessonCell.parent().removeClass('empty');
-            //                 lessonCell.append(lessonHtml);
-            //             }
-            //         }
-            //     }
-            //     $.each($('.day'), function(){
-            //         var _this = $(this);
-            //         _this.find('table tr:not(.empty)').last().nextAll('.empty').detach();
-            //     })
-            // }
+        scheduleBuilder: function () {
+
+            if (localStorage.getItem('group_id_16022016')) {
+                getSchedule(localStorage.getItem('group_id_16022016'));
+            }
+
+            if (localStorage.getItem('teacher_id_16022016')) {
+                getTeacherSchedule(localStorage.getItem('teacher_id_16022016'));
+            }
+
+            $('#teacher-select, #head-teacher-select').on('change', function () {
+                var select = $(this);
+                if (select.val()) {
+                    var teacher_id = select.val();
+                    var teacher_name = select.select2('data')[0].text;
+                    localStorage.removeItem('group_id_16022016');
+                    localStorage.removeItem('group_name');
+                    localStorage.setItem('teacher_id_16022016', teacher_id);
+                    localStorage.setItem('teacher_name', teacher_name);
+                    getTeacherSchedule(teacher_id);
+                }
+            });
+
+            $('#group-select, #head-group-select').on('change', function () {
+                var select = $(this);
+                if (select.val()) {
+                    var group_id = select.val();
+                    var group_name = select.select2('data')[0].text;
+                    localStorage.removeItem('teacher_id_16022016');
+                    localStorage.removeItem('teacher_name');
+                    localStorage.setItem('group_id_16022016', group_id);
+                    localStorage.setItem('group_name', group_name);
+                    getSchedule(group_id);
+                }
+            });
+
+
+            function getSchedule(group_id) {
+                $.ajax({
+                    url: "/api/v1/groups/" + group_id + "/schedule",
+                    dataType: "json",
+                    success: function (data) {
+                        //console.log(data);
+                        mainTableBuilder();
+                        allocateLessons(data);
+                        $(".group-name").text(localStorage.getItem('group_name'));
+                        document.title = localStorage.getItem('group_name') + ' - Расписание МГТУ им. Носова';
+                        $('select').val(null).trigger("change");
+                        $(document).trigger('getScheduleComplete');
+                    }
+                });
+            }
+
+
+            function getTeacherSchedule(teacher_id) {
+                $.ajax({
+                    url: "/api/v1/teachers/" + teacher_id + "/schedule",
+                    dataType: "json",
+                    success: function (data) {
+                        //console.log(data);
+                        mainTableBuilder();
+                        allocateTeacherLessons(data);
+                        $(".group-name").text(localStorage.getItem('teacher_name'));
+                        document.title = localStorage.getItem('teacher_name') + ' - Расписание МГТУ им. Носова';
+                        $('select').val(null).trigger("change");
+                        $(document).trigger('getScheduleComplete');
+                    }
+                });
+            }
+
+            function allocateLessons(data) {
+                for (var w = 0; w < data.length; w++) {
+                    var week = data[w];
+                    for (var d = 0; d < week['days'].length; d++) {
+                        var day = week['days'][d];
+                        for (var l = 0; l < day['events'].length; l++) {
+                            var event = day['events'][l];
+                            var lessonHtml = '' +
+                                '<div class="less-wrap">' +
+                                '<div class="less group-' + event['subgroup'] + '">' +
+                                '<div class="title">' + event['course'] + '</div>' +
+                                '<div class="ad clearfix">' + event['type'] + '' +
+                                '<div class="teacher">' + event['teacher'] + '</div>' +
+                                '</div>' +
+                                '<div class="aud">' + event['location'] + '</div>' +
+                                '</div>';
+                            //'<div class="info">' +
+                            //'<div class="edit-btn pencil-edit btn"></div>' +
+                            //'<div class="homework">http://www.dezinfo.net/images4/image/10.2013/education/education_03.jpg конспект по параграфу 5. П</div>' +
+                            //'<button class="submit-edit-btn hide">Готово</button>' +
+                            //'</div>' +
+                            //'</div>';
+                            var lessonCell = $('#less-' + week['week_id'] + '-' + day['day_id'] + '-' + event['event_index']);
+                            var dayCell = $('#day-' + week['week_id'] + '-' + day['day_id']);
+                            lessonCell.addClass('haveLess');
+                            dayCell.addClass('haveLess');
+                            lessonCell.parent().removeClass('empty');
+                            lessonCell.append(lessonHtml);
+                        }
+                    }
+                }
+                $.each($('.day'), function(){
+                    var _this = $(this);
+                    _this.find('table tr:not(.empty)').last().nextAll('.empty').detach();
+                })
+            }
+            function allocateTeacherLessons(data) {
+                for (var w = 0; w < data.length; w++) {
+                    var week = data[w];
+                    for (var d = 0; d < week['days'].length; d++) {
+                        var day = week['days'][d];
+                        for (var l = 0; l < day['events'].length; l++) {
+                            var event = day['events'][l];
+                            var lessonHtml = '' +
+                                '<div class="less-wrap">' +
+                                '<div class="less group-' + event['subgroup'] + '">' +
+                                '<div class="title">' + event['course'] + '</div>' +
+                                '<div class="ad clearfix">' + event['type'] + '' +
+                                '<div class="teacher">' + event['teacher'] + '</div>' +
+                                '</div>' +
+                                '<div class="aud">' + event['location'] + '</div>' +
+                                '</div>';
+                            //'<div class="info">' +
+                            //'<div class="edit-btn pencil-edit btn"></div>' +
+                            //'<div class="homework">http://www.dezinfo.net/images4/image/10.2013/education/education_03.jpg конспект по параграфу 5. П</div>' +
+                            //'<button class="submit-edit-btn hide">Готово</button>' +
+                            //'</div>' +
+                            //'</div>';
+                            var lessonCell = $('#less-' + week['week_id'] + '-' + day['day_id'] + '-' + event['event_index']);
+                            var dayCell = $('#day-' + week['week_id'] + '-' + day['day_id']);
+                            lessonCell.addClass('haveLess');
+                            dayCell.addClass('haveLess');
+                            lessonCell.parent().removeClass('empty');
+                            lessonCell.append(lessonHtml);
+                        }
+                    }
+                }
+                $.each($('.day'), function(){
+                    var _this = $(this);
+                    _this.find('table tr:not(.empty)').last().nextAll('.empty').detach();
+                })
+            }
+
+            function mainTableBuilder() {
+
+                $('.main-table-wrap').html(' ');
+                var tableHtml = '';
+                var days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+                for (var w = 0; w < 2; w++) {
+                    if (w == 0) {
+                        tableHtml += '<div class="week" id="week-1">' +
+                            '<div class="week-name">Нечётная</div>';
+                    } else {
+                        tableHtml += '<div class="week hide" id="week-2">' +
+                            '<div class="week-name">Чётная</div>';
+                    }
+                    tableHtml += '<div class="main-table">' +
+                        '<table>' +
+                        '<tr>';
+                    for (var d = 0; d < 6; d++) {
+                        tableHtml += '<td class="col-xs-12 col-sm-6 col-md-4">' + '<div class="day" id="day-' + (w + 1) + '-' + (d + 1) + '">' +
+                            '<div class="day-name">' + days[d] + '</div>' +
+                            '<table>';
+                        for (var l = 0; l < 8; l++) {
+                            tableHtml += '<tr class="empty">' +
+                                '<td class="less-' + (l + 1) + '" id="less-' + (w + 1) + '-' + (d + 1) + '-' + (l + 1) + '"></td>' +
+                                '</tr>';
+                        }
+                        tableHtml += '</table>' +
+                            '</div>' +
+                            '</td>';
+                        if (d == 1 || d == 3) {
+                            tableHtml += '<td class="col-sm-12 visible-sm separator"></td>';
+                        }
+                        if (d == 2) {
+                            tableHtml += '<td class="col-md-12 visible-md visible-lg separator"></td>';
+                        }
+                    }
+                    tableHtml += '</tr>' +
+                        '</table>' +
+                        '</div>' +
+                        '</div>';
+
+                }
+                $('.main-table-wrap').html(tableHtml);
+            }
+        },
 
         footerMove: function () {
             var ua = navigator.userAgent.toLowerCase();

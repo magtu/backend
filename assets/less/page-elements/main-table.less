@@ -4,12 +4,59 @@
     width: 100%;
     font-size: 12px;
   }
+  .day table{
+    border: 1px solid #bfbfbf;
+    border-top: transparent;
+    border-bottom: transparent;
+  }
 }
 .day {
   margin: 10px 5px 5px;
 }
+.day:before {
+  content: 'Нет занятий';
+  background: #fff;
+  position: absolute;
+  top: 33px;
+  bottom: 0px;
+  right: 1px;
+  left: 1px;
+  z-index: 3;
+  padding-top: 13px;
+  text-align: center;
+  border-bottom: 1px solid #bfbfbf;
+}
+.day {
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+}
+.day.haveLess {
+  height: auto;
+  overflow: visible;
+}
+.day.haveLess:before {
+  content: none;
+}
+.emptyDay{
+  height: 40px;
+  background: #fff;
+  &:before {
+    content: 'Нет занятий';
+    color: #20D840;
+    text-align: center;
+    font-size: 15px;
+    text-transform: uppercase;
+    line-height: 2.6;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
 .day-name {
-  background-color: @day-head;
+  background-color: #323c8d;
   padding: 6px 0 10px;
   text-transform: uppercase;
   text-align: center;
@@ -18,7 +65,7 @@
 }
 
 .week-name {
-  background: @week;
+  background: rgba(187,164,116,0.7);
   color: #fff;
   text-align: center;
   font-size: 25px;

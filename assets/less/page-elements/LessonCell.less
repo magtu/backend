@@ -1,12 +1,12 @@
 .day > table tr {
   display: block;
-  background-color: #fff;
-  border: 1px solid #257AA5;
-  border-top: none;
   position: relative;
-  transition: .3s ease-in;
+  border-bottom: 1px solid #bfbfbf;
+  //transition: .3s ease-in;
+  &:nth-child(2n) {
+    background: #efefef;
+  }
 }
-
 .day > table tr.currentLess:not(.empty) {
   outline: 2px solid @current-less;
   z-index: 2;
@@ -29,13 +29,14 @@
   cursor: pointer;
   .ad {
     color: #000;
+    text-align: right;
     font-style: italic;
     line-height: 1;
     margin-top: 4px;
     font-weight: 100;
   }
   .teacher {
-    float: right;
+    float: left;
   }
   &:after {
     content: '';
@@ -53,141 +54,116 @@
 }
 
 .less.group-1 {
-  background-color: fade(@group-1, 18%);
-  &:after {
-    // content: 'Подгруппа 1';
+  &:before {
+    content: '';
+    background: #7e84b4;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 4px;
   }
 }
 
 .less.group-2 {
-  background-color: fade(@group-2, 28%);
-  &:after {
-    // content: 'Подгруппа 2';
+  &:before {
+    content: '';
+    background: #caba99;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 4px;
   }
 }
 
 .less.group-3 {
-  background-color: fade(@group-3, 18%);
-  &:after {
-    // content: 'Подгруппа 3';
+  &:before {
+    content: '';
+    background: #e56f6f;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 4px;
   }
 }
 
 .aud {
   position: absolute;
-  background: @location;
-  border-top-left-radius: 25px;
-  color: #fff;
-  bottom: 0;
-  right: 0;
-  line-height: 1.8;
-  padding: 0 6px 0 13px;
-  z-index: 1;
+  color: #000;
+  bottom: 3px;
+  right: 5px;
 }
 
 //============================
 // HIDE EMPTY LESSONS
 //============================
 
-//tr:not(.empty) + .empty,
-//tr:not(.empty) + .empty + .empty,
-//tr:not(.empty) + .empty + .empty + .empty,
-//tr:not(.empty) + .empty + .empty + .empty + .empty,
-//tr:not(.empty) + .empty + .empty + .empty + .empty + .empty,
-//tr:not(.empty) + .empty + .empty + .empty + .empty + .empty + .empty,
-//tr:not(.empty) + .empty + .empty + .empty + .empty + .empty + .empty + .empty {
-//  display: none !important;
-//}
 .day > table tr.empty {
   height: 17px;
-  background: #EAEAEA;
 }
 .empty+.empty {
-  display: none;
+  //display: none;
 }
 
-.emptyDay{
-  height: 40px;
-  background: #fff;
-  &:before {
-    content: 'Нет занятий';
-    color: #20D840;
-    text-align: center;
-    font-size: 15px;
-    text-transform: uppercase;
-    line-height: 2.6;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-}
 
 //============================
 // CSS NUMBERING LESSONS
 //============================
 
-.day > table tr > td.haveLess:before {
+.day > table tr > td:before {
   content: '';
-  background-color: @num;
-  color: #FFF;
+  color: #000;
   position: absolute;
-  border-radius: 0 0 27px 0;
-  padding-right: 2px;
-  height: 20px;
-  width: 20px;
-  font-weight: 600;
   text-align: center;
-  line-height: 16px;
-  font-size: 10px;
+  line-height: 17px;
+  font-size: 11px;
   top: 0px;
-  left: 0px;
+  left: 5px;
   z-index: 1;
 }
 
-.day > table tr > td.haveLess.less-1:before {
+.day > table tr > td.less-1:before {
   content: '1';
 }
 
-.day > table tr > td.haveLess.less-2:before {
+.day > table tr > td.less-2:before {
   content: '2';
 }
 
-.day > table tr > td.haveLess.less-3:before {
+.day > table tr > td.less-3:before {
   content: '3';
 }
 
-.day > table tr > td.haveLess.less-4:before {
+.day > table tr > td.less-4:before {
   content: '4';
 }
 
-.day > table tr > td.haveLess.less-5:before {
+.day > table tr > td.less-5:before {
   content: '5';
 }
 
-.day > table tr > td.haveLess.less-6:before {
+.day > table tr > td.less-6:before {
   content: '6';
 }
 
-.day > table tr > td.haveLess.less-7:before {
+.day > table tr > td.less-7:before {
   content: '7';
 }
 
-.day > table tr > td.haveLess.less-8:before {
+.day > table tr > td.less-8:before {
   content: '8';
 }
 
 .day > table tr > td.haveLess:after {
   content: ' ';
   font-size: 12px;
-  font-style: normal;
-  color: #A5A5A5;
+  color: #000000;
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0px 5px;
-  line-height: 1.6;
+  top: 2px;
+  right: 5px;
   height: 20px;
 }
 
