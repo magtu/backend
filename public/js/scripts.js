@@ -80,9 +80,7 @@ $(function () {
             this.date();
             this.changeWeek();
             this.select2init();
-            this.hideGroupsComponent();
             //this.openHomework();
-            this.editArea();
             this.setToCurrent();
             // this.editMode();
         },
@@ -107,17 +105,6 @@ $(function () {
                 }
             });
         },
-
-        editMode: function () {
-            var md5_check = '3ab48f05066798b72f909e0dfcda9bc6';
-            $(document).keyup(function (eventObject) {
-                if (eventObject.which == 13 && md5($.trim($('.head-search-form .select2-search__field').val())) == md5_check) {
-                    alert('Режим редактирования активирован!');
-                    $('.head-search-form .select2-search__field').val(null);
-                }
-            });
-        },
-
 
         setToCurrent: function () {
             scrollToCurrentDay();
@@ -200,44 +187,6 @@ $(function () {
         },
         viewSearch: function () {
             $('.search-section').fadeIn();
-        },
-        editArea: function () {
-            function starEditing(editBtnElement) {
-                var _this = $(editBtnElement);
-                var editAreaWrap = _this.parent();
-                var editArea = editAreaWrap.find('.editArea');
-                var text = $.trim(editArea.text());
-                editArea.after('<textarea class="edit-area">' + text + '</textarea>');
-                editArea.detach();
-                _this.addClass('hide');
-                _this.parent().find('.refresh-btn').addClass('hide');
-                _this.parent().find('.submit-edit-btn').removeClass('hide');
-            }
-
-            function endEditing(sbmtEditBtnElement) {
-                var _this = $(sbmtEditBtnElement);
-                var editAreaWrap = _this.parent();
-                var editText = editAreaWrap.find('textarea.edit-area');
-                if (editText) {
-                    var text = $.trim(editText.val());
-                    editText.after('<div class="editArea"></div>');
-                    editText.detach();
-                    editAreaWrap.find('.editArea').text(text);
-                    _this.addClass('hide');
-                    _this.parent().find('.edit-btn').removeClass('hide');
-                    _this.parent().find('.refresh-btn').removeClass('hide');
-                }
-            }
-
-            $('.edit-btn').on('click', function () {
-                $('.submit-edit-btn:not(".hide")').each(function () {
-                    endEditing(this)
-                });
-                starEditing(this)
-            });
-            $('.submit-edit-btn').on('click', function () {
-                endEditing(this)
-            });
         },
         select2init: function () {
             $('#group-select, #head-group-select').select2({
@@ -368,68 +317,6 @@ $(function () {
             $(".less").on('click', function () {
                 $(".info").not($(this).next(".info")).slideUp();
                 $(this).next(".info").slideToggle();
-            });
-        },
-        hideGroupsComponent: function () {
-            var btn1 = $('.subgroup-btn-1');
-            var btn2 = $('.subgroup-btn-2');
-            var btn3 = $('.subgroup-btn-3');
-            var group1 = $('.group-1');
-            var group2 = $('.group-2');
-            var group3 = $('.group-3');
-            var div = $('div');
-            btn1.show();
-            btn2.show();
-            btn3.show();
-            if (!div.is('.group-1')) {
-                btn1.hide();
-            }
-            if (!div.is('.group-2')) {
-                btn2.hide();
-            }
-            if (!div.is('.group-3')) {
-                btn3.hide();
-            }
-            function showG(group) {
-                group.parent().slideDown().removeClass('folded');
-                group.parent().parent().addClass('haveLess');
-                group.parent().parent().parent().removeClass('empty');
-            }
-
-            function hideG(group) {
-                group.parent().slideUp().addClass('folded');
-                group.each(function () {
-                    var _this = $(this);
-                    var f = _this.parent().parent().parent().find('.less-wrap').is(':not(".folded")');
-                    if (!f) {
-                        _this.parent().parent().removeClass('haveLess');
-                        _this.parent().parent().parent().addClass('empty');
-                    }
-                });
-            }
-
-            btn1.on('click', function () {
-                $(":not('.group-1') + .info").slideUp();
-                showG(group1);
-                hideG(group2);
-                hideG(group3);
-            });
-            btn2.on('click', function () {
-                $(":not('.group-2') + .info").slideUp();
-                showG(group2);
-                hideG(group1);
-                hideG(group3);
-            });
-            btn3.on('click', function () {
-                $(":not('.group-3') + .info").slideUp();
-                showG(group3);
-                hideG(group1);
-                hideG(group2);
-            });
-            $('.subgroup-btn-0').on('click', function () {
-                showG(group1);
-                showG(group2);
-                showG(group3);
             });
         },
         date: function () {

@@ -3,14 +3,14 @@
   float: right;
   text-align: center;
   padding: 4px 8px;
-  height: 47px;
+  height: 57px;
   overflow: hidden;
-  border-left: 1px solid @head-border;
+  border-left: 1px solid #3c7998;
   line-height: 0.9;
   font-size: 10px;
   .time {
     display: inline-block;
-    font-size: 22px;
+    font-size: 27px;
   }
   .hours {
     display: inline-block;
@@ -25,6 +25,7 @@
 }
 
 .head {
+  font-family: "CenturyGothicRegular";
   overflow: hidden;
   font-weight: 300;
   color: #fff;
@@ -32,6 +33,7 @@
   width: 100%;
   position: relative;
   z-index: 6;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
   * {
     transition: 0.3s;
   }
@@ -54,18 +56,18 @@
 .group-name {
   cursor: pointer;
   font-weight: 300;
-  font-size: 23px;
-  padding: 7px 3%;
+  font-size: 32px;
+  height: 57px;
+  padding: 7px 29px;
   float: left;
   color: #FFFFFF;
-  border-right: 1px solid @head-border;
+  border-right: 1px solid #3c7998;
 }
 
 form.head-search-form {
   display: inline-block;
-  padding: 6px 8px;
+  padding: 10px 8px;
   float: left;
-  width: 270px;
   text-align: right;
   position: relative;
   border-right: 1px solid @head-border;
@@ -73,7 +75,11 @@ form.head-search-form {
     width: 100% !important;
   }
   .select2-container {
-    width: 100% !important;
+    width: 220px !important;
+    float: left;
+    &:nth-child(2){
+      margin-right: 10px;
+    }
   }
   .select2-container--default .select2-selection--multiple {
     background-color: rgba(255, 255, 255, 0.12);
@@ -92,6 +98,7 @@ form.head-search-form {
 }
 
 .head-min {
+  font-family: "CenturyGothicRegular";
   display: none;
   overflow: hidden;
   color: #fff;

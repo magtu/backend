@@ -2,6 +2,7 @@
   display: block;
   position: relative;
   border-bottom: 1px solid #bfbfbf;
+  background: #fff;
   //transition: .3s ease-in;
   &:nth-child(2n) {
     background: #efefef;
@@ -22,18 +23,16 @@
 }
 
 .less {
-  padding: 7px 80px 6px 25px;
+  padding: 7px 99px 6px 28px;
   width: 100%;
   word-break: break-word;
   position: relative;
   cursor: pointer;
   .ad {
-    color: #000;
     text-align: right;
-    font-style: italic;
-    line-height: 1;
     margin-top: 4px;
     font-weight: 100;
+    padding: 3px 0 1px;
   }
   .teacher {
     float: left;
@@ -46,10 +45,10 @@
     opacity: 0.9;
   }
   .title {
-    text-transform: capitalize;
     color: #000000;
     line-height: 12px;
-    text-align: center;
+    font-size: 14px;
+    font-family: Tahoma;
   }
 }
 
@@ -59,7 +58,7 @@
     background: #7e84b4;
     position: absolute;
     top: 0;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
     width: 4px;
   }
@@ -71,7 +70,7 @@
     background: #caba99;
     position: absolute;
     top: 0;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
     width: 4px;
   }
@@ -83,18 +82,17 @@
     background: #e56f6f;
     position: absolute;
     top: 0;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
-
     width: 4px;
   }
 }
 
 .aud {
   position: absolute;
-  color: #000;
-  bottom: 3px;
-  right: 5px;
+  bottom: 7px;
+  right: 9px;
+  font-size: 13px;
 }
 
 //============================
@@ -102,7 +100,7 @@
 //============================
 
 .day > table tr.empty {
-  height: 17px;
+  height: 26px;
 }
 .empty+.empty {
   //display: none;
@@ -118,11 +116,11 @@
   color: #000;
   position: absolute;
   text-align: center;
-  line-height: 17px;
-  font-size: 11px;
-  top: 0px;
-  left: 5px;
+  font-size: 15px;
+  top: 3px;
+  left: 10px;
   z-index: 1;
+  font-family: "CenturyGothicRegular";
 }
 
 .day > table tr > td.less-1:before {

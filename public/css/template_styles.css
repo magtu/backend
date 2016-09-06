@@ -1787,6 +1787,13 @@ button {
 .h100 {
   height: 100%;
 }
+@font-face {
+  font-family: "CenturyGothicRegular";
+  src: url("../fonts/CenturyGothicRegular.eot");
+  src: url("../fonts/CenturyGothicRegular.eot?#iefix") format("embedded-opentype"), url("../fonts/CenturyGothicRegular.woff") format("woff"), url("../fonts/CenturyGothicRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
 html {
   font-family: 'Open sans', sans-serif;
 }
@@ -1811,79 +1818,15 @@ html {
 body * {
   box-sizing: border-box;
 }
+body {
+  font-family: "CenturyGothicRegular";
+}
 html,
 body {
   height: 100%;
 }
-div#clearLocalStorage {
-  font-weight: 300;
+main {
   display: none;
-  cursor: pointer;
-  background: #257aa5;
-  color: #fff;
-  font-size: 10px;
-  position: fixed;
-  top: 3px;
-  right: 4px;
-  padding: 2px 10px 4px;
-  opacity: 0.3;
-  z-index: 15;
-}
-div#clearLocalStorage:hover {
-  opacity: 1;
-}
-.warning-msg {
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 1.2;
-  padding: 5px 10px;
-  text-align: center;
-  background: #ea3d3c;
-  color: #fff;
-  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-.warning-msg a {
-  color: #fff;
-}
-span.msg-h {
-  font-weight: bold;
-}
-.page-wrap {
-  max-width: 1200px;
-  margin: 0px auto;
-  padding: 0 15px;
-  height: 100%;
-}
-.content {
-  height: 100%;
-  padding: 0px 0px 10px;
-  box-shadow: 0px 5px 6px rgba(123, 132, 179, 0.47);
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,bffffa+66,bffffa+100 */
-  background: #ffffff;
-  /* Old browsers */
-}
-body * {
-  box-sizing: border-box;
-}
-html,
-body {
-  height: 100%;
-}
-div#clearLocalStorage {
-  font-weight: 300;
-  cursor: pointer;
-  background: #257aa5;
-  color: #fff;
-  font-size: 10px;
-  position: fixed;
-  top: 3px;
-  right: 4px;
-  padding: 2px 10px 4px;
-  opacity: 0.3;
-  z-index: 15;
-}
-div#clearLocalStorage:hover {
-  opacity: 1;
 }
 .warning-msg {
   font-weight: 300;
@@ -1960,29 +1903,32 @@ span.msg-h {
   margin: 0;
   position: relative;
   vertical-align: middle;
-  width: 65% !important;
+  width: 100% !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+  width: 100%;
 }
 span.select2-selection.select2-selection--single {
   border-radius: 0;
-  border: 1px solid #FFCF4E;
+  border: 1px solid #000;
   height: 35px;
 }
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: solid #FFCF4E 1px;
+  border: solid #000 1px;
   border-radius: 0;
   padding-left: 7px;
 }
 .select2-container--default .select2-selection--multiple {
-  background-color: rgba(255, 255, 255, 0.85);
-  border: 1px solid #FFCF4E;
+  background-color: transparent;
+  border: 1px solid #000;
   border-radius: 0;
   cursor: text;
   padding-left: 7px;
 }
 .select2-dropdown {
-  background-color: rgba(255, 255, 255, 0.83);
+  background-color: transparent;
   border-radius: 0;
-  border: 1px solid #FFCF4E;
+  border: 1px solid #000;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: transparent;
@@ -2075,41 +2021,37 @@ input.select2-search__field {
   background: rgba(0, 255, 140, 0.7);
 }
 .group-search {
-  max-width: 500px;
-  width: 100%;
-  height: 200px;
-  text-align: center;
-  background: #fff9fc;
-  border-radius: 5px;
-  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.18);
-  background-size: cover;
-  background-position: 50% 50%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.group-search h1 {
+  text-transform: uppercase;
+  font-size: 24px;
+}
+img.mgtu-start-logo {
+  max-width: 110px;
 }
 .search-section {
+  text-align: center;
   display: none;
   margin: 8% auto 0;
   position: relative;
   max-width: 500px;
-}
-.search-section:before {
-  content: '';
-  background: #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  opacity: 0.4;
+  padding: 50px 0px;
+  background: url(/images/back.png);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  z-index: 0;
+}
+.search-form p {
+  font-size: 21px;
+  margin-bottom: 6px;
 }
 form.search-form {
-  position: relative;
-  display: table-cell;
   vertical-align: middle;
   height: 200px;
-  text-align: center;
-  width: 1000px;
+  text-align: left;
+  width: 100%;
 }
 .main-table {
   padding: 0 10px;
@@ -2117,23 +2059,26 @@ form.search-form {
 .main-table table {
   width: 100%;
   font-size: 12px;
+}
+.main-table .day table {
   border: 1px solid #bfbfbf;
   border-top: transparent;
   border-bottom: transparent;
 }
-.day {
-  margin: 10px 5px 5px;
+.main-table-wrap {
+  padding-bottom: 30px;
+  background: url(/images/back.png);
 }
 .day:before {
   content: 'Нет занятий';
   background: #fff;
   position: absolute;
-  top: 33px;
+  top: 41px;
   bottom: 0px;
   right: 1px;
   left: 1px;
   z-index: 3;
-  padding-top: 13px;
+  padding-top: 10px;
   text-align: center;
   border-bottom: 1px solid #bfbfbf;
 }
@@ -2141,6 +2086,8 @@ form.search-form {
   height: 80px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
+  margin: 25px 13px 5px;
 }
 .day.haveLess {
   height: auto;
@@ -2167,14 +2114,16 @@ form.search-form {
   right: 0;
 }
 .day-name {
+  font-family: "CenturyGothicRegular";
   background-color: #323c8d;
-  padding: 6px 0 10px;
-  text-transform: uppercase;
+  padding: 5px 0 5px;
   text-align: center;
   position: relative;
+  font-size: 23px;
   color: white;
 }
 .week-name {
+  font-family: "CenturyGothicRegular";
   background: rgba(187, 164, 116, 0.7);
   color: #fff;
   text-align: center;
@@ -2183,16 +2132,17 @@ form.search-form {
   padding: 5px;
   cursor: pointer;
   position: relative;
-  box-shadow: inset 0 4px 8px -6px #000, 2px 2px 10px 0px rgba(0, 0, 0, 0.18);
   font-weight: 300;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
 }
 .week-name:after {
   right: 7%;
-  background-image: url('../../images/icons/chevron-right.svg');
+  content: ">" !important;
 }
 .week-name:before {
   left: 7%;
-  background-image: url('../../images/icons/chevron-left.svg');
+  content: "<" !important;
 }
 .week-name:after,
 .week-name:before {
@@ -2209,6 +2159,7 @@ form.search-form {
   display: block;
   position: relative;
   border-bottom: 1px solid #bfbfbf;
+  background: #fff;
 }
 .day > table tr:nth-child(2n) {
   background: #efefef;
@@ -2226,19 +2177,17 @@ form.search-form {
   width: 1000px;
 }
 .less {
-  padding: 7px 80px 6px 25px;
+  padding: 7px 99px 6px 28px;
   width: 100%;
   word-break: break-word;
   position: relative;
   cursor: pointer;
 }
 .less .ad {
-  color: #000;
   text-align: right;
-  font-style: italic;
-  line-height: 1;
   margin-top: 4px;
   font-weight: 100;
+  padding: 3px 0 1px;
 }
 .less .teacher {
   float: left;
@@ -2251,17 +2200,17 @@ form.search-form {
   opacity: 0.9;
 }
 .less .title {
-  text-transform: capitalize;
   color: #000000;
   line-height: 12px;
-  text-align: center;
+  font-size: 14px;
+  font-family: Tahoma;
 }
 .less.group-1:before {
   content: '';
   background: #7e84b4;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 4px;
 }
@@ -2270,7 +2219,7 @@ form.search-form {
   background: #caba99;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 4px;
 }
@@ -2279,29 +2228,29 @@ form.search-form {
   background: #e56f6f;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 4px;
 }
 .aud {
   position: absolute;
-  color: #000;
-  bottom: 3px;
-  right: 5px;
+  bottom: 7px;
+  right: 9px;
+  font-size: 13px;
 }
 .day > table tr.empty {
-  height: 17px;
+  height: 26px;
 }
 .day > table tr > td:before {
   content: '';
   color: #000;
   position: absolute;
   text-align: center;
-  line-height: 17px;
-  font-size: 11px;
-  top: 0px;
-  left: 5px;
+  font-size: 15px;
+  top: 3px;
+  left: 10px;
   z-index: 1;
+  font-family: "CenturyGothicRegular";
 }
 .day > table tr > td.less-1:before {
   content: '1';
@@ -2368,7 +2317,7 @@ form.search-form {
   float: right;
   text-align: center;
   padding: 4px 8px;
-  height: 47px;
+  height: 57px;
   overflow: hidden;
   border-left: 1px solid #3c7998;
   line-height: 0.9;
@@ -2376,7 +2325,7 @@ form.search-form {
 }
 .date-wrap .time {
   display: inline-block;
-  font-size: 22px;
+  font-size: 27px;
 }
 .date-wrap .hours {
   display: inline-block;
@@ -2389,6 +2338,7 @@ form.search-form {
   overflow: hidden;
 }
 .head {
+  font-family: "CenturyGothicRegular";
   overflow: hidden;
   font-weight: 300;
   color: #fff;
@@ -2396,6 +2346,7 @@ form.search-form {
   width: 100%;
   position: relative;
   z-index: 6;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
 }
 .head * {
   transition: 0.3s;
@@ -2417,17 +2368,17 @@ form.search-form {
 .group-name {
   cursor: pointer;
   font-weight: 300;
-  font-size: 23px;
-  padding: 7px 3%;
+  font-size: 32px;
+  height: 57px;
+  padding: 7px 29px;
   float: left;
   color: #FFFFFF;
   border-right: 1px solid #3c7998;
 }
 form.head-search-form {
   display: inline-block;
-  padding: 6px 8px;
+  padding: 10px 8px;
   float: left;
-  width: 270px;
   text-align: right;
   position: relative;
   border-right: 1px solid #3c7998;
@@ -2436,7 +2387,11 @@ form.head-search-form input.select2-search__field {
   width: 100% !important;
 }
 form.head-search-form .select2-container {
-  width: 100% !important;
+  width: 220px !important;
+  float: left;
+}
+form.head-search-form .select2-container:nth-child(2) {
+  margin-right: 10px;
 }
 form.head-search-form .select2-container--default .select2-selection--multiple {
   background-color: rgba(255, 255, 255, 0.12);
@@ -2453,6 +2408,7 @@ form.head-search-form .select2-dropdown {
   color: #fff;
 }
 .head-min {
+  font-family: "CenturyGothicRegular";
   display: none;
   overflow: hidden;
   color: #fff;
@@ -2590,9 +2546,14 @@ textarea.edit-area {
 @media (max-width: 500px) {
   .group-search {
     border-radius: 0;
-    height: 730px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
   .search-section {
     margin: 0;
+    height: 100%;
   }
 }
