@@ -64,7 +64,7 @@ abstract class EventSubject {
         $smbt = \App\PdoHelper::get()->query($q);
         $db_res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
         if (count($db_res) == 0) {
-            throw new Exception(static::subjectName()." with id=$id not found", 404);
+            throw new \Exception(static::subjectName()." with id=$id not found", 404);
         }
         $raw_result = array(1=>array(), array());
         $intFields = array("event_index", "course_id", "type_id",

@@ -7,7 +7,7 @@ class Router {
 		$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		//index
 		if ($url_path == '/') {
-			include 'index.html';
+			\Views\ViewHelper::render('schedule', \Models\Group::schedule(62));
 			return;
 		}
 		$uri_parts = explode('/', trim($url_path, ' /'));

@@ -61,19 +61,88 @@
                     <div class="date"></div>
                 </div>
                 <div class="group-name"></div>
-            </div>         
+            </div>
             <div class="main-table-wrap">
-                <?
-                    include "templates/html/week.php";
+                <?php
                     for ($w = 0; $w < 2; $w++) {
-                    ?>
-                        <div class="week" id="week-<?=$w+1;?>">
-                        <div class="week-name"><?=groupSchedule[$w]['week'];?></div>
-                    <?
-                        renderWeek($groupSchedule[$w]);
-                    }
+                        $week = $data[$w];
                 ?>
-            </div>      
+
+                    <div class="week" id="week-<?=$w+1;?>">
+                    <div class="week-name"><?=$week['week'];?></div>
+                    <div class="main-table">
+                        <table>
+                            <tr>
+                            <?
+                                for ($d = 0; $d < 6; $d++) {
+                                    $day = $week['days'][$d];
+                            ?>
+                                    <td class="col-xs-12 col-sm-6 col-md-4">
+                                    <div class="day" id="day-<?= $w + 1 ?>-<?= $d + 1 ?>">
+                                        <div class="day-name"><?= $day['day'] ?></div>
+                                        <table>
+                                    <?
+                                    $events = $day['events'];
+                                    $haveLesson = array();
+                                    $maxLesson = 0;
+                                    foreach ($events as $event) {
+                                        if ($event['event_index'] > $maxLesson) {
+                                            $maxLesson = $event['event_index'];;
+                                        }
+                                        $haveLesson[$event['event_index']] = true;
+                                    }
+                                    if ($maxLesson > 0) {
+                                        for ($l = 1; $l <= $maxLesson; $l++) {
+
+                                            if (!empty($haveLesson[$l])) {?>
+                                            <tr>
+                                                <td class="less-<?= $l ?> haveLess" id="less-<?= $w . "-" . $d . "-" . $l ?>">
+                                                    <div class="less-wrap">
+                                            <?
+                                            foreach ($events as $event) {
+                                                if ($event['event_index'] != $l) { continue; }
+                                            ?>
+                                                        <div class="less group-<?= $event['subgroup'] ?>">
+                                                            <div class="title"><?= $event['course'] ?></div>
+                                                            <div class="ad clearfix">
+                                                                <?= $event['type'] ?>
+                                                                <div class="teacher"><?= $event['teacher'] ?></div>
+                                                            </div>
+                                                            <div class="aud"><?= $event['location'] ?></div>
+                                                        </div>
+
+                                            <?}?>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?} else {
+                                               echo '<tr class="empty"></tr>';
+                                            }
+                                        }
+                                    } else {
+                                        echo '<tr class="emptyDay"></tr>';
+                                    }?>
+                                        </table>
+                                    </div>
+                                </td>
+
+                                <?
+                                if ($d == 1 || $d == 3) {
+                                ?>
+                                    <td class="col-sm-12 visible-sm separator"></td>
+                                <?
+                                }
+                                if ($d == 2) {
+                                ?>
+                                    <td class="col-md-12 visible-md visible-lg separator"></td>
+                                <?
+                            }}}
+                                ?>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+            </div>
             <div class="subgroup-btns">
                 <div class="sb subgroup-btn-0">Все подгруппы</div>
                 <div class="sb subgroup-btn-1">Подгруппа 1</div>
@@ -101,6 +170,11 @@
 </main>
 
 <footer></footer>
-<script src="js/scripts.js"></script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/Global.js"></script>
+<script src="js/Main.js"></script>
 </body>
 </html>
