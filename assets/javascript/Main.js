@@ -5,11 +5,18 @@ $(function () {
         run: function () {
             this.footerMove();
             this.select2init();
-            this.scheduleBuilder();
-            this.hideSearch();
-            if (!localStorage.getItem('group_id_16022017')  && !localStorage.getItem('teacher_id_16022017')) {
+            //.scheduleBuilder();
+            console.log('xkty');
+            //ßthis.hideSearch();
+            //if (!localStorage.getItem('group_id_16022016')  && !localStorage.getItem('teacher_id_16022016')) {
                 this.viewSearch();
-            }
+            //}
+            this.viewTable();
+            this.date();
+            this.changeWeek();
+            this.select2init();
+            //this.openHomework();
+            this.setToCurrent();
         },
         resizeFunctions: function () {
             if ($(window).outerWidth() > 560) {
@@ -22,12 +29,7 @@ $(function () {
             this.headMinification();
         },
         afterTableLoad: function () {
-            this.viewTable();
-            this.date();
-            this.changeWeek();
-            this.select2init();
-            //this.openHomework();
-            this.setToCurrent();
+
             // this.editMode();
         },
 
@@ -283,12 +285,12 @@ $(function () {
 
         scheduleBuilder: function () {
 
-            if (localStorage.getItem('group_id_7092016')) {
-                getSchedule(localStorage.getItem('group_id_7092016'));
+            if (localStorage.getItem('group_id_16022016')) {
+                getSchedule(localStorage.getItem('group_id_16022016'));
             }
 
-            if (localStorage.getItem('teacher_id_7092016')) {
-                getTeacherSchedule(localStorage.getItem('teacher_id_7092016'));
+            if (localStorage.getItem('teacher_id_16022016')) {
+                getTeacherSchedule(localStorage.getItem('teacher_id_16022016'));
             }
 
             $('#teacher-select, #head-teacher-select').on('change', function () {
@@ -296,9 +298,9 @@ $(function () {
                 if (select.val()) {
                     var teacher_id = select.val();
                     var teacher_name = select.select2('data')[0].text;
-                    localStorage.removeItem('group_id_7092016');
+                    localStorage.removeItem('group_id_16022016');
                     localStorage.removeItem('group_name');
-                    localStorage.setItem('teacher_id_7092016', teacher_id);
+                    localStorage.setItem('teacher_id_16022016', teacher_id);
                     localStorage.setItem('teacher_name', teacher_name);
                     getTeacherSchedule(teacher_id);
                 }
@@ -309,9 +311,9 @@ $(function () {
                 if (select.val()) {
                     var group_id = select.val();
                     var group_name = select.select2('data')[0].text;
-                    localStorage.removeItem('teacher_id_7092016');
+                    localStorage.removeItem('teacher_id_16022016');
                     localStorage.removeItem('teacher_name');
-                    localStorage.setItem('group_id_7092016', group_id);
+                    localStorage.setItem('group_id_16022016', group_id);
                     localStorage.setItem('group_name', group_name);
                     getSchedule(group_id);
                 }
@@ -486,4 +488,3 @@ $(function () {
         }
     };
     window.Application.addComponent("Main", Main);
-});
