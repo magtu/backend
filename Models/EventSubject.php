@@ -51,6 +51,7 @@ abstract class EventSubject {
         if (count($res) == 0) {
             throw new \Exception(static::subjectName()." with id=$id not found", 404);
         }
+        $res[0]['type'] = static::subjectName();
         return $res[0];
     }
     public static function schedule($id) {

@@ -105,7 +105,9 @@
                                                 <div class="title"><?= $event['course'] ?></div>
                                                 <div class="ad clearfix">
                                                    <?= $event['type'] ?>
-                                                   <div class="teacher"><?= $event['reverse'] ?></div>
+                                                   <div class="teacher">
+                                                        <a target="_blank" href="/<?= $event['reverse'] ?>"><?= $event['reverse'] ?></a>
+                                                   </div>
                                                 </div>
                                                 <div class="aud"><?= $event['location'] ?></div>
                                              </div>
