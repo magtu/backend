@@ -75,9 +75,10 @@ abstract class EventSubject {
                 $db_res[$i][$intFields[$j]] = intval($db_res[$i][$intFields[$j]]);
             }
             $db_res[$i]['type'] = $types[$db_res[$i]['type_id']];
-
             $weekId = $db_res[$i]['week_id'];
             $dayId = $db_res[$i]['day_id'];
+            unset($db_res[$i]['week_id']);
+            unset($db_res[$i]['day_id']);
             if ($weekId == 3) {
                 $raw_result[1][$dayId][] = $db_res[$i];
                 $raw_result[2][$dayId][] = $db_res[$i];

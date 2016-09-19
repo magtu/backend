@@ -3,71 +3,71 @@
 namespace App;
 
 class Search {
-    public static function query($q) {
-        $mysql = Mysql::get();
-        
-        $prefix = substr($q, 0, 1);
-        $id = intval(substr($q, 1));
+    public static function query($query) {        
+        $prefix = substr($query, 0, 1);
+        $id = intval(substr($query, 1));
         
         //group by id
         if ($prefix == 'g' && $id > 0) {
-            $stmt = $mysql->prepare('SELECT `id`, `name` FROM `groups` WHERE `id`=?');
-            $stmt->bind_param('i', $id);
-            $stmt->execute();
-            $mysqlResult = $stmt->get_result();
+            $q = 'SELECT `id`, `name`, `name` as `url` FROM `groups` WHERE `id`=:id';
+            $smbt = \App\PdoHelper::get()->prepare($q);
+            $smbt->execute(array('id' => $id));
+            $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
             $result = [];
-            if ($mysqlResult->num_rows == 1) {
-                $line = $mysqlResult->fetch_assoc();
+            if (count($res) > 0) {
+                $line = $res[0];
                 $result[] = array(
                     'type' => 'group',
                     'id' => $line['id'],
-                    'name' => $line['name']
+                    'name' => $line['name'],
+                    'url' => $line['url']
                 );
             }
-            Mysql::close($mysql);
             return $result;
         }
         //teacher by id
         if ($prefix == 't' && $id > 0) {
-            $stmt = $mysql->prepare('SELECT `id`, `name` FROM `teachers` WHERE `id`=?');
-            $stmt->bind_param('i', $id);
-            $stmt->execute();
-            $mysqlResult = $stmt->get_result();
+            $q = 'SELECT `id`, `name`, `url` FROM `teachers` WHERE `id`=:id';
+            $smbt = \App\PdoHelper::get()->prepare($q);
+            $smbt->execute(array('id' => $id));
+            $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
             $result = [];
-            if ($mysqlResult->num_rows == 1) {
-                $line = $mysqlResult->fetch_assoc();
+            if (count($res) > 0) {
+                $line = $res[0];
                 $result[] = array(
                     'type' => 'teacher',
                     'id' => $line['id'],
-                    'name' => $line['name']
+                    'name' => $line['name'],
+                    'url' => $line['url']
                 );
             }
-            Mysql::close($mysql);
             return $result;
         }
         //search by name
         $result = [];
-        $q .= '%';
-        $stmt = $mysql->prepare('SELECT `id`, `name` FROM `groups` WHERE `name` LIKE ?');
-        $stmt->bind_param('s', $q);
-        $stmt->execute();
-        $mysqlResult = $stmt->get_result();
-        while ($line = $mysqlResult->fetch_assoc()) {
+        $query .= '%';
+        $q = 'SELECT `id`, `name`, `name` as `url` FROM `groups` WHERE `name` LIKE :query';
+        $smbt = \App\PdoHelper::get()->prepare($q);
+        $smbt->execute(array('query'=>$query));
+        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        for ($i=0; $i<count($res); $i++) {
             $result[] = array(
                 'type' => 'group',
-                'id' => $line['id'],
-                'name' => $line['name']
+                'id' => $res[$i]['id'],
+                'name' => $res[$i]['name'],
+                'url' => $res[$i]['url'],
             );
         }
-        $stmt = $mysql->prepare('SELECT `id`, `name` FROM `teachers` WHERE `name` LIKE ?');
-        $stmt->bind_param('s', $q);
-        $stmt->execute();
-        $mysqlResult = $stmt->get_result();
-        while ($line = $mysqlResult->fetch_assoc()) {
+        $q = 'SELECT `id`, `name`, `url` FROM `teachers` WHERE `url` LIKE :query';
+        $smbt = \App\PdoHelper::get()->prepare($q);
+        $smbt->execute(array('query'=>$query));
+        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        for ($i=0; $i<count($res); $i++) {
             $result[] = array(
                 'type' => 'teacher',
-                'id' => $line['id'],
-                'name' => $line['name']
+                'id' => $res[$i]['id'],
+                'name' => $res[$i]['name'],
+                'url' => $res[$i]['url']
             );
         }
         return $result;
