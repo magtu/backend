@@ -32,7 +32,8 @@ abstract class EventSubject {
     }
     public static function search($prefix)
     {
-        $q = 'SELECT id, name FROM '.static::subjectTable().' WHERE name LIKE :name';
+        $q = 'SELECT `id`, `name`, `url` FROM '.static::subjectTable().' 
+            WHERE name LIKE :name or `url` LIKE :name';
         $smbt = \App\PdoHelper::get()->prepare($q);
         $smbt->execute(array('name' => $prefix.'%'));
         $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
@@ -43,7 +44,14 @@ abstract class EventSubject {
     }
     public static function details($id)
     {
-        return 'details for '.static::subjectName().' with id='.$id;
+        $q = 'SELECT `id`, `name`, `url` FROM `'.static::subjectTable().'` WHERE `id` = :id';
+        $smbt = \App\PdoHelper::get()->prepare($q);
+        $smbt->execute(array('id' => $id));
+        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
+        if (count($res) == 0) {
+            throw new \Exception(static::subjectName()." with id=$id not found", 404);
+        }
+        return $res[0];
     }
     public static function schedule($id) {
         $weeks = WeekType::all();

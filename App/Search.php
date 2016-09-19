@@ -9,67 +9,34 @@ class Search {
         
         //group by id
         if ($prefix == 'g' && $id > 0) {
-            $q = 'SELECT `id`, `name`, `name` as `url` FROM `groups` WHERE `id`=:id';
-            $smbt = \App\PdoHelper::get()->prepare($q);
-            $smbt->execute(array('id' => $id));
-            $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
             $result = [];
-            if (count($res) > 0) {
-                $line = $res[0];
-                $result[] = array(
-                    'type' => 'group',
-                    'id' => $line['id'],
-                    'name' => $line['name'],
-                    'url' => $line['url']
-                );
+            try {
+                $result[] = \Models\Group::details($id);
+                $result[0]['type'] = 'group';
+            } catch (\Exception $e) {
             }
             return $result;
         }
         //teacher by id
         if ($prefix == 't' && $id > 0) {
-            $q = 'SELECT `id`, `name`, `url` FROM `teachers` WHERE `id`=:id';
-            $smbt = \App\PdoHelper::get()->prepare($q);
-            $smbt->execute(array('id' => $id));
-            $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
             $result = [];
-            if (count($res) > 0) {
-                $line = $res[0];
-                $result[] = array(
-                    'type' => 'teacher',
-                    'id' => $line['id'],
-                    'name' => $line['name'],
-                    'url' => $line['url']
-                );
+            try {
+                $result[] = \Models\Teacher::details($id);
+                $result[0]['type'] = 'teacher';
+            } catch (\Exception $e) {
             }
             return $result;
         }
         //search by name
-        $result = [];
-        $query .= '%';
-        $q = 'SELECT `id`, `name`, `name` as `url` FROM `groups` WHERE `name` LIKE :query';
-        $smbt = \App\PdoHelper::get()->prepare($q);
-        $smbt->execute(array('query'=>$query));
-        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
-        for ($i=0; $i<count($res); $i++) {
-            $result[] = array(
-                'type' => 'group',
-                'id' => $res[$i]['id'],
-                'name' => $res[$i]['name'],
-                'url' => $res[$i]['url'],
-            );
+        $groups = \Models\Group::search($query);
+        for ($i=0;$i<count($groups); ++$i) {
+            $groups[$i]['type'] = 'group';
         }
-        $q = 'SELECT `id`, `name`, `url` FROM `teachers` WHERE `url` LIKE :query';
-        $smbt = \App\PdoHelper::get()->prepare($q);
-        $smbt->execute(array('query'=>$query));
-        $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
-        for ($i=0; $i<count($res); $i++) {
-            $result[] = array(
-                'type' => 'teacher',
-                'id' => $res[$i]['id'],
-                'name' => $res[$i]['name'],
-                'url' => $res[$i]['url']
-            );
+        $teachers = \Models\Teacher::search($query);
+        for ($i=0;$i<count($teachers); ++$i) {
+            $teachers[$i]['type'] = 'teacher';
         }
+        $result = array_merge($groups, $teachers);
         return $result;
     }
 }

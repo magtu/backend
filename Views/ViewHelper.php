@@ -8,6 +8,6 @@ class ViewHelper {
     }
     public static function renderError($code, $data = []) {
         http_response_code($code);
-        include 'Errors\\'.$code.'.php';
+        include 'Errors/'.$code.'.php';
     }
 }

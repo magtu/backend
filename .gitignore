@@ -1,6 +1,9 @@
 .idea
 
 config.php
+import_config.ini
+ШАБЛОН.sql
+utf8_ШАБЛОН.sql
 
 node_modules
 bower_components

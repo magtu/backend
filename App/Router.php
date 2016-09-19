@@ -17,7 +17,7 @@ class Router {
 			$search_result = Search::query($url_path);
 			//открыть страницу группы или страницу с поиском
 			if (count($search_result) == 0) {
-				Router::page404();
+				\Views\ViewHelper::renderError(404);
 				return;
 			}
 			if (count($search_result) == 1) {
@@ -46,15 +46,10 @@ class Router {
 				$api->process(array_slice($uri_parts, 2));
 				return;
 			} else {
-				Router::page404();
+				\Views\ViewHelper::renderError(404);
 				return;
 			}
 		}
-		Router::page404();
-	}
-	private static function page404() {
-		//залогировать, незряж стучаться сюда
-		echo '404';
-		exit;
+		\Views\ViewHelper::renderError(404);
 	}
 }
