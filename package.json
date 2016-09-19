@@ -1,0 +1,17 @@
+{
+  "name": "magtu.rf",
+  "version": "1.0.0",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-csso": "^1.0.1",
+    "gulp-rename": "~1.2.2",
+    "gulp-stylus": "^2.3.0",
+    "gulp-uglify": "^1.5.1"
+  },
+  "dependencies": {
+    "gulp-less": "^3.0.5",
+    "bower": "~1.7.7"
+  }
+}
