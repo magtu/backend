@@ -43,7 +43,7 @@
                   <div class="date"></div>
                </div>
                <div class="group-name">
-                    Группа
+                    <?=$data['name']?>
                </div>
                <form action="" class="head-search-form">
                   <select id="head-group-select" class="head-group-select"></select>
@@ -64,8 +64,8 @@
             </div>
             <div class="main-table-wrap">
                <?php
-                  for ($w = 0; $w < 2; $w++) {
-                      $week = $data[$w];
+                  for ($w = 0; $w < count($data['schedule']); $w++) {
+                      $week = $data['schedule'][$w];
                   ?>
                <div class="week" id="week-<?=$w+1;?>">
                   <div class="week-name"><?=$week['week'];?></div>
@@ -105,7 +105,7 @@
                                                 <div class="title"><?= $event['course'] ?></div>
                                                 <div class="ad clearfix">
                                                    <?= $event['type'] ?>
-                                                   <div class="teacher"><?= $event['teacher'] ?></div>
+                                                   <div class="teacher"><?= $event['reverse'] ?></div>
                                                 </div>
                                                 <div class="aud"><?= $event['location'] ?></div>
                                              </div>

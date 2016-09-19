@@ -27,9 +27,9 @@ class Router {
 				}
 				$id = $search_result[0]['id'];
 				if ($search_result[0]['type'] == 'group') {
-					\Views\ViewHelper::render('schedule', \Models\Group::schedule($id));
+					\Views\ViewHelper::render('schedule', \Models\v2\Group::schedule($id));
 				} elseif ($search_result[0]['type'] == 'teacher') {
-					\Views\ViewHelper::render('schedule', \Models\Teacher::schedule($id));
+					\Views\ViewHelper::render('schedule', \Models\v2\Teacher::schedule($id));
 				}
 				return;
 			}
