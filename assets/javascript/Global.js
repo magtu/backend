@@ -34,5 +34,5 @@ Date.prototype.getWeek = function () {
         target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
     }
     return 1 + Math.ceil((firstThursday - target) / 604800000);
-}
+};
 

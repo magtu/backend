@@ -12,14 +12,10 @@ img.mgtu-start-logo {
 }
 .search-section {
   text-align: center;
-  display: none;
   margin: 8% auto 0;
   position: relative;
   max-width: 500px;
   padding: 50px 0px;
-  background: url(/images/back.png);
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
 }
 .search-form p {
   font-size: 21px;
@@ -30,4 +26,39 @@ form.search-form {
   height: 200px;
   text-align: left;
   width: 100%;
+}
+
+.ajax-select-wrap {
+  text-align: left;
+  input.ajax-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #000;
+    background: transparent;
+  }
+}
+
+.ajax-select-results {
+  width: 100%;
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid #000;
+  border-top: transparent;
+  a {
+    padding: 8px 14px;
+    display: block;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #000;
+    &:hover {
+      background: #323c8d !important;
+      color: white;
+    }
+  }
+  .ajax-select-result:nth-child(2n+1) a {
+    background: #fff;
+  }
+  .ajax-select-result:nth-child(2n) a {
+    background: #efefef;
+  }
 }

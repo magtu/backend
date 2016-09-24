@@ -4,12 +4,8 @@ $(function () {
 
         run: function () {
             this.footerMove();
-            this.select2init();
-            this.viewSearch();
-            this.viewTable();
             this.date();
             this.changeWeek();
-            this.select2init();
             this.setToCurrent();
         },
         resizeFunctions: function () {
@@ -117,149 +113,14 @@ $(function () {
                 $('.head-min').slideUp('min');
             }
         },
-        viewTable: function () {
-            $('.search-section').fadeOut();
-            setTimeout(function () {
-                $('main').fadeIn();
-            }, 500);
-        },
-        viewSearch: function () {
-            $('.search-section').fadeIn();
-        },
-        select2init: function () {
-            $('#group-select, #head-group-select').select2({
-                multiple: true,
-                maximumSelectionLength: 1,
-                minimumInputLength: 1,
-                placeholder: "Найди группу...",
-                language: {
-                    inputTooShort: function () {
-                        return 'Введите хотя бы 1 букву';
-                    },
-                    maximumSelected: function () {
-                        return 'Ошибка. Попробуёте ещё раз';
-                    },
-                    searching: function () {
-                        return 'Поиск…';
-                    },
-                    noResults: function () {
-                        return 'Совпадений не найдено';
-                    },
-                    loadingMore: function () {
-                        return 'Загрузка данных…';
-                    },
-                    errorLoading: function () {
-                        return 'Невозможно загрузить результаты';
-                    }
-                },
-                ajax: {
-                    url: '/api/v1/groups/',
-                    dataType: "json",
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    results: function (data) {
-                        return {results: data, text: 'name'};
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                    formatSelection: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    }
-                }
-            });
-            $('#teacher-select,#head-teacher-select').select2({
-                multiple: true,
-                maximumSelectionLength: 1,
-                minimumInputLength: 1,
-                placeholder: "Найди преподавателя...",
-                language: {
-                    inputTooShort: function () {
-                        return 'Введите хотя бы 1 букву';
-                    },
-                    maximumSelected: function () {
-                        return 'Ошибка. Попробуёте ещё раз';
-                    },
-                    searching: function () {
-                        return 'Поиск…';
-                    },
-                    noResults: function () {
-                        return 'Совпадений не найдено';
-                    },
-                    loadingMore: function () {
-                        return 'Загрузка данных…';
-                    },
-                    errorLoading: function () {
-                        return 'Невозможно загрузить результаты';
-                    }
-                },
-                ajax: {
-                    url: '/api/v1/teachers/',
-                    dataType: "json",
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    results: function (data) {
-                        return {results: data, text: 'name'};
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                    formatSelection: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    }
-                }
-            });
-        },
         changeWeek: function () {
             $('.week-name').on('click', function () {
 
                 $('.week').toggleClass('hide');
             });
         },
-        openHomework: function () {
-            $(".less").on('click', function () {
-                $(".info").not($(this).next(".info")).slideUp();
-                $(this).next(".info").slideToggle();
-            });
-        },
         date: function () {
-            var days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+            var days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
             var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря',];
 
             function date() {

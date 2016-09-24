@@ -33,7 +33,9 @@ class Router {
 				}
 				return;
 			}
-			echo json_encode($search_result, JSON_UNESCAPED_UNICODE);
+			//echo json_encode($search_result, JSON_UNESCAPED_UNICODE);
+
+			\Views\ViewHelper::render('matches', $search_result);
 			return;
 		}
 		// api/v1/...
