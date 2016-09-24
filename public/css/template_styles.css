@@ -2093,6 +2093,14 @@ form.search-form {
   border: 1px solid #000;
   background: transparent;
 }
+.ajax-select-wrap.head-select {
+  float: left;
+  margin: 9px;
+  background: #2c357d;
+}
+.ajax-select-wrap.head-select input.ajax-select {
+  border: 1px solid #3c7998;
+}
 .ajax-select-results {
   width: 100%;
   max-height: 260px;
@@ -2107,7 +2115,8 @@ form.search-form {
   text-decoration: none;
   color: #000;
 }
-.ajax-select-results a:hover {
+.ajax-select-results a:hover,
+.ajax-select-results a.active {
   background: #323c8d !important;
   color: white;
 }

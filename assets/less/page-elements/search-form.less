@@ -36,6 +36,14 @@ form.search-form {
     border: 1px solid #000;
     background: transparent;
   }
+  &.head-select {
+    float: left;
+    margin: 9px;
+    background: hsl(233, 48%, 33%);
+    input.ajax-select {
+      border: 1px solid #3c7998;
+    }
+  }
 }
 
 .ajax-select-results {
@@ -50,7 +58,7 @@ form.search-form {
     font-size: 1.2em;
     text-decoration: none;
     color: #000;
-    &:hover {
+    &:hover, &.active {
       background: #323c8d !important;
       color: white;
     }

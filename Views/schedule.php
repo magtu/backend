@@ -45,11 +45,9 @@
             <div class="group-name">
                <?=$data['name']?>
             </div>
-            <form action="" class="head-search-form">
-               <div class="ajax-select-wrap">
-                  <input type="text" class="ajax-select" placeholder="Найди группу">
-               </div>
-            </form>
+            <div class="ajax-select-wrap head-select">
+               <input type="text" class="ajax-select" placeholder="Найди группу">
+            </div>
          </div>
          <div class="head-min clearfix">
             <div class="date-wrap">
