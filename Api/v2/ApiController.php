@@ -3,72 +3,117 @@
 namespace Api\v2;
 
 class ApiController extends \Api\BaseApiController {
+    protected function getDoc() {
+        return "https://github.com/gordinmitya/magtu";
+    }
+
     public function process($uri_paths) {
         if (count($uri_paths) == 0) {
-            $this->fail(404);
+            return $this->methodNotFound('empty url');
         }
         $methodName = $uri_paths[0].'Method';
         $callable = array($this, $methodName);
 
         if (!(method_exists($this, $methodName) && is_callable($callable))) {
-            $this->fail(404);
+            return $this->methodNotFound($methodName);
         }
 
-        call_user_func($callable, array_slice($uri_paths, 1));
+        $success = call_user_func($callable, array_slice($uri_paths, 1));
+        if (!$success) {
+            return $this->methodNotFound(join('/',$uri_paths));
+        }
+    }
+
+    function searchMethod() {
+        if (empty($_GET['q'])) {
+            return $this->invalidParametr('q');
+        }
+        return $this->ok(\App\Search::query($_GET['q']));
     }
 
     function groupsMethod($uri_paths) {
-        if (count($uri_paths)>0) {
-            $id = intval($uri_paths[0]);
-            if ($id > 0) {
-                $this->groupDetailMethod($id, array_slice($uri_paths, 1));
-            } else {
-                $this->errorResult(400, 'bad parametr group id');
-            }
-            return;
+        if (count($uri_paths) == 0) {
+            return $this->methodNotFound('empty url');
+        }
+        $id = intval($uri_paths[0]);
+        if ($id > 0) {
+            return $this->groupDetailMethod($id, array_slice($uri_paths, 1));
+        } else {
+            return $this->invalidParametr('group id');
         }
         if (empty($_GET['q'])) {
-            $this->jsonResult(\Models\v2\Group::list());
-            return;
+            return $this->ok(\Models\v2\Group::list());
         }
-        $this->jsonResult(\Models\Group::search($_GET['q']));
+        return $this->ok(\Models\v2\Group::search($_GET['q']));
     }
     function groupDetailMethod($id, $uri_paths) {
-        if (count($uri_paths)>0) {
-            if ($uri_paths[0] == 'schedule') {
-                $this->groupScheduleMethod($id, array_slice($uri_paths,1));
-                return;
-            }
-            if ($uri_paths[0] == 'updates') {
-                $this->groupUpdatesMethod($id, array_slice($uri_paths,1));
-                return;
-            }
+        if (count($uri_paths) == 0) {
+            return $this->ok(\Models\Group::details($id));
         }
-        $this->jsonResult(\Models\Group::details($id));
+        if ($uri_paths[0] == 'schedule') {
+            return $this->groupScheduleMethod($id, $uri_paths);
+        }
+        return false;
     }
     function groupScheduleMethod($id) {
         $schedule = \Models\v2\Group::schedule($id);
         if (!$schedule) {
-            $this->errorResult(400, 'bad parametr group id');
+            return $this->invalidParametr('group id');
         }
-        $this->ok($schedule);
-    }
-    function groupUpdatesMethod($id, $uri_paths) {
-        if (count($uri_paths)>0) {
-            if ($uri_paths[0] == 'schedule') {
-                $this->jsonResult(array('updated_at' => \Models\Group::scheduleUpdates($id)));
-                return;
-            }
-        }
-        throw new \Exception("incorrect request url", 404);
+        return $this->ok($schedule);
     }
 
-    protected function ok($response) {
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($response, JSON_UNESCAPED_UNICODE);
+    function teachersMethod($uri_paths) {
+        if (count($uri_paths) == 0) {
+            return $this->methodNotFound('empty url');
+        }
+        $id = intval($uri_paths[0]);
+        if ($id > 0) {
+            return $this->teacherDetailMethod($id, array_slice($uri_paths, 1));
+        } else {
+            return $this->invalidParametr('teacher id');
+        }
+        if (empty($_GET['q'])) {
+            return $this->ok(\Models\v2\Teacher::list());
+        }
+        return $this->ok(\Models\v2\Teacher::search($_GET['q']));
     }
-    protected function fail($code) {
-        echo $code;
-        exit;
+    function teacherDetailMethod($id, $uri_paths) {
+        if (count($uri_paths) == 0) {
+            return $this->ok(\Models\Teacher::details($id));
+        }
+        if ($uri_paths[0] == 'schedule') {
+            return $this->teacherScheduleMethod($id, $uri_paths);
+        }
+        return false;
+    }
+    function teacherScheduleMethod($id) {
+        $schedule = \Models\v2\Teacher::schedule($id);
+        if (!$schedule) {
+            return $this->invalidParametr('teacher id');
+        }
+        return $this->ok($schedule);
+    }
+
+    protected function jsonResult($code, $data) {
+        http_response_code($code);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        return true;
+    }
+    protected function ok($response) {
+        return $this->jsonResult(200, $response);
+    }
+    protected function invalidParametr($paramName){
+        return $this->jsonResult(400, array(
+            'error'=>"invalid parametr '$paramName'",
+            'documentation'=>$this->getDoc()
+            ));
+    }
+    protected function methodNotFound($methodName) {
+        return $this->jsonResult(404, array(
+            'error'=>"method '$methodName' not found",
+            'documentation'=>$this->getDoc()
+            ));
     }
 }
