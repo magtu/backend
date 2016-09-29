@@ -33,7 +33,7 @@ abstract class EventSubject {
     public static function search($prefix)
     {
         $q = 'SELECT `id`, `name`, `url` FROM '.static::subjectTable().' 
-            WHERE name LIKE :name or `url` LIKE :name';
+            WHERE `name` LIKE :name or `url` LIKE :name';
         $smbt = \App\PdoHelper::get()->prepare($q);
         $smbt->execute(array('name' => $prefix.'%'));
         $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);

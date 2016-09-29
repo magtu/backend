@@ -33,7 +33,10 @@ class ApiController extends \Api\BaseApiController {
 
     function groupsMethod($uri_paths) {
         if (count($uri_paths) == 0) {
-            return $this->methodNotFound('empty url');
+            if (empty($_GET['q'])) {
+                return $this->ok(\Models\v2\Group::list());
+            }
+            return $this->ok(\Models\v2\Group::search($_GET['q']));
         }
         $id = intval($uri_paths[0]);
         if ($id > 0) {
@@ -41,10 +44,6 @@ class ApiController extends \Api\BaseApiController {
         } else {
             return $this->invalidParametr('group id');
         }
-        if (empty($_GET['q'])) {
-            return $this->ok(\Models\v2\Group::list());
-        }
-        return $this->ok(\Models\v2\Group::search($_GET['q']));
     }
     function groupDetailMethod($id, $uri_paths) {
         if (count($uri_paths) == 0) {
@@ -52,6 +51,9 @@ class ApiController extends \Api\BaseApiController {
         }
         if ($uri_paths[0] == 'schedule') {
             return $this->groupScheduleMethod($id, $uri_paths);
+        }
+        if ($uri_paths[0] == 'updates') {
+            return $this->groupUpdatesMethod($id, array_slice($uri_paths,1));
         }
         return false;
     }
@@ -62,10 +64,21 @@ class ApiController extends \Api\BaseApiController {
         }
         return $this->ok($schedule);
     }
+    function groupUpdatesMethod($id, $uri_paths) {
+        if (count($uri_paths)>0) {
+            if ($uri_paths[0] == 'schedule') {
+                return $this->ok(array('updated_at' => \Models\Group::scheduleUpdates($id)));
+            }
+        }
+        throw new \Exception("incorrect request url", 404);
+    }
 
     function teachersMethod($uri_paths) {
         if (count($uri_paths) == 0) {
-            return $this->methodNotFound('empty url');
+            if (empty($_GET['q'])) {
+                return $this->ok(\Models\v2\Teacher::list());
+            }
+            return $this->ok(\Models\v2\Teacher::search($_GET['q']));
         }
         $id = intval($uri_paths[0]);
         if ($id > 0) {
@@ -73,10 +86,6 @@ class ApiController extends \Api\BaseApiController {
         } else {
             return $this->invalidParametr('teacher id');
         }
-        if (empty($_GET['q'])) {
-            return $this->ok(\Models\v2\Teacher::list());
-        }
-        return $this->ok(\Models\v2\Teacher::search($_GET['q']));
     }
     function teacherDetailMethod($id, $uri_paths) {
         if (count($uri_paths) == 0) {
@@ -84,6 +93,9 @@ class ApiController extends \Api\BaseApiController {
         }
         if ($uri_paths[0] == 'schedule') {
             return $this->teacherScheduleMethod($id, $uri_paths);
+        }
+        if ($uri_paths[0] == 'updates') {
+            return $this->teacherUpdatesMethod($id, array_slice($uri_paths,1));
         }
         return false;
     }
@@ -93,6 +105,14 @@ class ApiController extends \Api\BaseApiController {
             return $this->invalidParametr('teacher id');
         }
         return $this->ok($schedule);
+    }
+    function teacherUpdatesMethod($id, $uri_paths) {
+        if (count($uri_paths)>0) {
+            if ($uri_paths[0] == 'schedule') {
+                return $this->ok(array('updated_at' => \Models\Teacher::scheduleUpdates($id)));
+            }
+        }
+        throw new \Exception("incorrect request url", 404);
     }
 
     protected function jsonResult($code, $data) {
