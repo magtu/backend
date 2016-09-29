@@ -46,7 +46,7 @@
                <?=$data['name']?>
             </div>
             <div class="ajax-select-wrap head-select">
-               <input type="text" class="ajax-select" placeholder="Найди группу">
+               <input type="text" class="ajax-select" placeholder="Поиск">
             </div>
          </div>
          <div class="head-min clearfix">
@@ -105,7 +105,7 @@
                                                                <div class="ad clearfix">
                                                                   <?= $event['type'] ?>
                                                                   <div class="teacher">
-                                                                     <a target="_blank" href="/<?= $event['reverse'] ?>"><?= $event['reverse'] ?></a>
+                                                                     <a href="/<?= $event['reverse'] ?>"><?= $event['reverse'] ?></a>
                                                                   </div>
                                                                </div>
                                                                <div class="aud"><?= $event['location'] ?></div>

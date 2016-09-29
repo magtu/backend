@@ -8,7 +8,7 @@ function myAjaxSelect(select){
             $('.ajax-select-results').show();
             if(select.val().length > 0) {
                 $.ajax({
-                    url: '/api/v1/groups/?q=' + select.val(),
+                    url: '/api/v2/search?q=' + select.val(),
                     dataType: 'json',
                     success: function (data) {
                         if(data[0] === undefined) {
