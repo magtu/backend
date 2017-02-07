@@ -25,7 +25,7 @@ class ApiController extends \Api\BaseApiController {
     }
 
     function searchMethod() {
-        if (empty($_GET['q'])) {
+        if (empty($_GET['q']) && !is_scalar($_GET['q'])) {
             return $this->invalidParametr('q');
         }
         return $this->ok(\App\Search::query($_GET['q']));
