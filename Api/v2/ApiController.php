@@ -25,7 +25,7 @@ class ApiController extends \Api\BaseApiController {
     }
 
     function searchMethod() {
-        if (empty($_GET['q']) && !is_scalar($_GET['q'])) {
+        if (empty($_GET['q']) || !is_scalar($_GET['q'])) {
             return $this->invalidParametr('q');
         }
         return $this->ok(\App\Search::query($_GET['q']));
@@ -33,7 +33,7 @@ class ApiController extends \Api\BaseApiController {
 
     function groupsMethod($uri_paths) {
         if (count($uri_paths) == 0) {
-            if (empty($_GET['q'])) {
+            if (empty($_GET['q']) || !is_scalar($_GET['q'])) {
                 return $this->ok(\Models\v2\Group::list());
             }
             return $this->ok(\Models\v2\Group::search($_GET['q']));
@@ -75,7 +75,7 @@ class ApiController extends \Api\BaseApiController {
 
     function teachersMethod($uri_paths) {
         if (count($uri_paths) == 0) {
-            if (empty($_GET['q'])) {
+            if (empty($_GET['q']) || !is_scalar($_GET['q'])) {
                 return $this->ok(\Models\v2\Teacher::list());
             }
             return $this->ok(\Models\v2\Teacher::search($_GET['q']));
