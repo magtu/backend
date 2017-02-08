@@ -14,10 +14,7 @@ abstract class EventSubject extends \Models\EventSubject {
                     $event = &$day['events'][$e];
                     $event['reverse_id'] = $event[static::reverseId()];
                     $event['reverse'] = $event[static::reverseName()];
-                    unset($event['group_id']);
-                    unset($event['group']);
-                    unset($event['teacher_id']);
-                    unset($event['teacher']);
+                    unset($event['group_id'], $event['group'], $event['teacher_id'],$event['teacher']);
                 }
             }
         }

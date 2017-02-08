@@ -5,9 +5,9 @@ namespace Api\v1;
 class ApiController extends \Api\BaseApiController {
     public function process($uri_paths) {
         if (count($uri_paths) == 0) {
-            $this->fail(404);
+            $this->errorResult(404,'empty url');
         }
-        $methodName = $uri_paths[0].'Method';
+        $methodName = $uri_paths[0].'PublicMethod';
         $callable = array($this, $methodName);
 
         if (!(method_exists($this, $methodName) && is_callable($callable))) {
@@ -20,43 +20,44 @@ class ApiController extends \Api\BaseApiController {
         }
     }
 
-    function groupsMethod($uri_paths) {
+    // Api callable method
+    function groupsPublicMethod($uri_paths) {
         if (count($uri_paths)>0) {
             $id = intval($uri_paths[0]);
             if ($id > 0) {
-                $this->groupDetailMethod($id, array_slice($uri_paths, 1));
+                $this->groupDetail($id, array_slice($uri_paths, 1));
             } else {
                 $this->errorResult(400, 'bad parametr group id');
             }
             return;
         }
-        if (empty($_GET['q'])) {
-            $this->jsonResult(\Models\Group::list());
+        if (empty($_GET['q']) || !is_scalar($_GET['q'])) {
+            $this->jsonResult(\Models\Group::all());
             return;
         }
         $this->jsonResult(\Models\Group::search($_GET['q']));
     }
-    function groupDetailMethod($id, $uri_paths) {
+    function groupDetail($id, $uri_paths) {
         if (count($uri_paths)>0) {
             if ($uri_paths[0] == 'schedule') {
-                $this->groupScheduleMethod($id, array_slice($uri_paths,1));
+                $this->groupSchedule($id, array_slice($uri_paths,1));
                 return;
             }
             if ($uri_paths[0] == 'updates') {
-                $this->groupUpdatesMethod($id, array_slice($uri_paths,1));
+                $this->groupUpdates($id, array_slice($uri_paths,1));
                 return;
             }
         }
         $this->jsonResult(\Models\Group::details($id));
     }
-    function groupScheduleMethod($id) {
+    function groupSchedule($id) {
         $schedule = \Models\Group::schedule($id);
         if (!$schedule) {
             $this->errorResult(400, 'bad parametr group id');
         }
         $this->jsonResult($schedule);
     }
-    function groupUpdatesMethod($id, $uri_paths) {
+    function groupUpdates($id, $uri_paths) {
         if (count($uri_paths)>0) {
             if ($uri_paths[0] == 'schedule') {
                 $this->jsonResult(array('updated_at' => \Models\Group::scheduleUpdates($id)));
@@ -66,30 +67,31 @@ class ApiController extends \Api\BaseApiController {
         throw new \Exception("incorrect request url", 404);
     }
 
-    function teachersMethod($uri_paths) {
+    // Api callable method
+    function teachersPublicMethod($uri_paths) {
         if (count($uri_paths)>0) {
             $id = intval($uri_paths[0]);
             if ($id > 0) {
-                $this->teacherDetailMethod($id, array_slice($uri_paths, 1));
+                $this->teacherDetail($id, array_slice($uri_paths, 1));
             } else {
                 $this->errorResult(400, 'bad parametr group id');
             }
             return;
         }
-        if (empty($_GET['q'])) {
-            $this->jsonResult(\Models\Teacher::list());
+        if (empty($_GET['q']) || !is_scalar($_GET['q'])) {
+            $this->jsonResult(\Models\Teacher::all());
             return;
         }
         $this->jsonResult(\Models\Teacher::search($_GET['q']));
     }
-    function teacherDetailMethod($id, $uri_paths) {
+    function teacherDetail($id, $uri_paths) {
         if (count($uri_paths)>0 && $uri_paths[0] == 'schedule') {
-            $this->teacherScheduleMethod($id, $uri_paths);
+            $this->teacherSchedule($id, $uri_paths);
             return;
         }
         $this->jsonResult(\Models\Teacher::details($id));
     }
-    function teacherScheduleMethod($id) {
+    function teacherSchedule($id) {
         $schedule = \Models\Teacher::schedule($id);
         if (!$schedule) {
             $this->errorResult(400, 'bad parametr teacher id');
