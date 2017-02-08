@@ -5,13 +5,15 @@ body{
   font-family: "CenturyGothicRegular";
   background: url(/images/back.png);
 }
-html, body {
-  height: 100%;
-}
 main{
- // display: none; 
+  position: relative;
 }
-
+footer {
+  background: #fff;
+  font-size: 0.8em;
+  padding: 15px;
+  box-shadow: inset 0 8px 5px -4px rgba(0, 0, 0, 0.25);
+}
 .warning-msg {
   font-weight: 300;
   font-size: 10px;
@@ -32,13 +34,24 @@ span.msg-h {
 
 @max-width: 1200px;
 .page-wrap {
-  max-width: @max-width; //960 + padding
   margin: 0px auto;
-  padding: 0 15px;
   height: 100%;
 }
 
 .content {
   height: 100%;
   padding: 0px 0px 10px;
+}
+
+
+
+main:before {
+  content: '';
+  //background: url(/images/ny.png) 50% 50% /contain;
+  width: 240px;
+  height: 300px;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 5%;
 }

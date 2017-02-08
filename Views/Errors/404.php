@@ -49,7 +49,6 @@
     </section>
 </div>
 
-<footer></footer>
 <script src="js/jquery.min.js"></script>
 <script src="js/myAjaxSelect.js"></script>
 <script>

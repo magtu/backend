@@ -2,31 +2,18 @@
   .day {
     margin: 11px 0px 0;
   }
-  form.head-search-form {
-    float: none;
-    text-align: center;
-    width: 100%;
-    display: none;
-    position: relative;
-    margin: 0;
-    border-right: transparent;
-    border-top: 1px solid #356984;
-  }
-  .select2-container .select2-selection--multiple {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 35px;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  form.head-search-form .select2-container {
+  .head-search-form {
     width: 100% !important;
+    display: none;
+    border-top: 1px solid #356984;
   }
   .group-name {
     float: none;
     text-align: center;
     border: transparent;
+  }
+  .head .group-name:after {
+    display: block;
   }
 }
 @media (max-width: @max-width) {
@@ -35,14 +22,6 @@
   }
 }
 @media (max-width: 500px) {
-  .group-search {
-    border-radius: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-  }
   .search-section {
     margin: 0;
     height: 100%;

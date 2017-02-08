@@ -7,7 +7,8 @@ class Router {
 		$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		//index
 		if ($url_path == '/') {
-			echo 'read from cookie';
+			//echo 'read from cookie';
+			\Views\ViewHelper::render('search', NULL);
 			return;
 		}
 		$uri_parts = explode('/', trim($url_path, ' /'));

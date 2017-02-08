@@ -37,7 +37,6 @@ function myAjaxSelect(select){
         function focusSearchItem(item_num){
             $('.ajax-select-result a').removeClass('active');
             $('.ajax-select-result:nth-child('+item_num+') a').addClass('active');
-            console.log(item_num);
         }
         function showResults(data){
             $('.ajax-select-results').html("");

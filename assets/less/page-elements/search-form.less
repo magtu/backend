@@ -4,7 +4,7 @@
   padding: 0 10px;
   h1{
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 1.57em;
   }
 }
 img.mgtu-start-logo {
@@ -17,15 +17,9 @@ img.mgtu-start-logo {
   max-width: 500px;
   padding: 50px 0px;
 }
-.search-form p {
-  font-size: 21px;
-  margin-bottom: 6px;
-}
-form.search-form {
-  vertical-align: middle;
-  height: 200px;
-  text-align: left;
-  width: 100%;
+.search-form {
+  margin-bottom: 41px;
+  font-size: 1.165em;
 }
 
 .ajax-select-wrap {
@@ -38,10 +32,12 @@ form.search-form {
   }
   &.head-select {
     float: left;
-    margin: 9px;
-    background: hsl(233, 48%, 33%);
+    padding: 9px;
+    //background: #2c357d;
+    width: 250px;
     input.ajax-select {
       border: 1px solid #3c7998;
+      background: #2c357d;
     }
   }
 }
@@ -55,7 +51,6 @@ form.search-form {
   a {
     padding: 8px 14px;
     display: block;
-    font-size: 1.2em;
     text-decoration: none;
     color: #000;
     &:hover, &.active {
@@ -63,10 +58,30 @@ form.search-form {
       color: white;
     }
   }
-  .ajax-select-result:nth-child(2n+1) a {
-    background: #fff;
-  }
-  .ajax-select-result:nth-child(2n) a {
-    background: #efefef;
-  }
+}
+.ajax-select-result {
+  background: #fff;
+  font-size: 1.2em;
+}
+.ajax-select-result:nth-child(2n+1) a {
+  background: #fff;
+}
+.ajax-select-result:nth-child(2n) a {
+  background: #efefef;
+}
+
+.last-used .search-results{
+  border: 1px solid #323c8d;
+  border-top: none;
+  overflow: auto;
+  max-height: 260px;
+  background: #9297c4;
+}
+.last-used p {
+  background: #323c8d;
+  color: #fff;
+  padding: 10px;
+}
+.search-section .last-used {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
 }

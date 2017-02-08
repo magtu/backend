@@ -3,12 +3,13 @@ $(function () {
     var Main = {
 
         run: function () {
-            this.footerMove();
-            this.date();
             this.changeWeek();
             this.setToCurrent();
+            this.hideSearch();
+            this.footerMove();
         },
         resizeFunctions: function () {
+            this.footerMove();
             if ($(window).outerWidth() > 560) {
                 $('.head-search-form').show();
             } else {
@@ -119,21 +120,6 @@ $(function () {
                 $('.week').toggleClass('hide');
             });
         },
-        date: function () {
-            var days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-            var months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря',];
-
-            function date() {
-                var date = new Date();
-                $('.date').text(date.getDate() + ' ' + months[date.getMonth()]);
-                $('.hours').text(date.getHours());
-                $('.minutes').text(date.getMinutes());
-                $('.weekday').text(days[date.getDay() - 1]);
-            }
-
-            date();
-            setInterval(date, 30000);
-        },
         footerMove: function () {
             var ua = navigator.userAgent.toLowerCase();
             var isOpera = (ua.indexOf('opera') > -1);
@@ -143,8 +129,7 @@ $(function () {
             var footer = $("footer");
 
             function getViewportHeight() {
-                return ((document.compatMode || isIE) && !isOpera)
-                    ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
+                return ((document.compatMode || isIE) && !isOpera) ? (document.compatMode == 'CSS1Compat') ? document.documentElement.clientHeight : document.body.clientHeight : (document.parentWindow || document.defaultView).innerHeight;
             }
 
             wrapper.css("min-height", viewportHeight - footer.outerHeight(true));

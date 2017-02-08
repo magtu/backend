@@ -1769,6 +1769,15 @@ button {
   font-weight: inherit;
   color: inherit;
 }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  margin: 0;
+  padding: 0;
+}
 .cell {
   display: table-cell;
 }
@@ -1863,9 +1872,14 @@ body {
   font-family: "CenturyGothicRegular";
   background: url(/images/back.png);
 }
-html,
-body {
-  height: 100%;
+main {
+  position: relative;
+}
+footer {
+  background: #fff;
+  font-size: 0.8em;
+  padding: 15px;
+  box-shadow: inset 0 8px 5px -4px rgba(0, 0, 0, 0.25);
 }
 .warning-msg {
   font-weight: 300;
@@ -1884,14 +1898,21 @@ span.msg-h {
   font-weight: bold;
 }
 .page-wrap {
-  max-width: 1200px;
   margin: 0px auto;
-  padding: 0 15px;
   height: 100%;
 }
 .content {
   height: 100%;
   padding: 0px 0px 10px;
+}
+main:before {
+  content: '';
+  width: 240px;
+  height: 300px;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 5%;
 }
 .btn {
   width: 100px;
@@ -1932,79 +1953,50 @@ span.msg-h {
   padding: 5px 7px;
   margin: 1px;
 }
-.search-form .select2-container {
-  box-sizing: border-box;
+.header-lastused {
+  background: #323c8d;
+  padding: 4px 10px 0;
+}
+.header-lastused .lu-item {
   display: inline-block;
-  margin: 0;
+  margin: 0 2px;
+  text-decoration: none;
+  font-size: 0.8em;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
   position: relative;
-  vertical-align: middle;
-  width: 100% !important;
 }
-.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
-  width: 100%;
+.header-lastused .lu-item:active {
+  position: relative;
+  top: 2px;
 }
-span.select2-selection.select2-selection--single {
-  border-radius: 0;
-  border: 1px solid #000;
-  height: 35px;
-}
-.select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: solid #000 1px;
-  border-radius: 0;
-  padding-left: 7px;
-}
-.select2-container--default .select2-selection--multiple {
-  background-color: transparent;
-  border: 1px solid #000;
-  border-radius: 0;
-  cursor: text;
-  padding-left: 7px;
-}
-.select2-dropdown {
-  background-color: transparent;
-  border-radius: 0;
-  border: 1px solid #000;
-}
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-}
-.select2-results__option {
-  padding: 6px 6px 6px 12px;
-}
-span.select2-selection__choice__remove {
-  display: none !important;
-}
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-  padding: 0;
-}
-.select2-container {
-  font-weight: 300;
-}
-form.head-search-form .select2-container--default .select2-selection--multiple {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-form.head-search-form .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: transparent;
-}
-form.head-search-form .select2-container--default .select2-selection--multiple {
-  border: transparent;
-}
-.select2-dropdown {
-  background-color: #356984;
-  border: transparent;
+.header-lastused a {
+  background: #5b63a5;
+  display: inline-block;
   color: #fff;
+  border-radius: 4px;
+  padding: 2px 30px 2px 5px;
+  text-decoration: none;
+  float: left;
 }
-.select2-results__option {
-  padding: 10px 6px 10px 12px;
-  border-top: 1px solid #1A5573;
+.header-lastused a:hover {
+  background: #7b81b7;
 }
-span.select2-selection.select2-selection--multiple {
-  height: 35px;
+.header-lastused .close-btn:hover {
+  background-color: #a9adcb;
 }
-input.select2-search__field {
-  width: 100% !important;
+.header-lastused .close-btn {
+  background: #8389b5 url(/images/icons/cross.svg) no-repeat 50% 50%;
+  display: inline-block;
+  width: 22px;
+  border-radius: 0 4px 4px 0;
+  margin-left: 6px;
+  vertical-align: middle;
+  background-size: 60%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
 }
 .delta {
   display: none;
@@ -2062,7 +2054,7 @@ input.select2-search__field {
 }
 .group-search h1 {
   text-transform: uppercase;
-  font-size: 24px;
+  font-size: 1.57em;
 }
 img.mgtu-start-logo {
   max-width: 110px;
@@ -2074,15 +2066,9 @@ img.mgtu-start-logo {
   max-width: 500px;
   padding: 50px 0px;
 }
-.search-form p {
-  font-size: 21px;
-  margin-bottom: 6px;
-}
-form.search-form {
-  vertical-align: middle;
-  height: 200px;
-  text-align: left;
-  width: 100%;
+.search-form {
+  margin-bottom: 41px;
+  font-size: 1.165em;
 }
 .ajax-select-wrap {
   text-align: left;
@@ -2095,11 +2081,12 @@ form.search-form {
 }
 .ajax-select-wrap.head-select {
   float: left;
-  margin: 9px;
-  background: #2c357d;
+  padding: 9px;
+  width: 250px;
 }
 .ajax-select-wrap.head-select input.ajax-select {
   border: 1px solid #3c7998;
+  background: #2c357d;
 }
 .ajax-select-results {
   width: 100%;
@@ -2111,7 +2098,6 @@ form.search-form {
 .ajax-select-results a {
   padding: 8px 14px;
   display: block;
-  font-size: 1.2em;
   text-decoration: none;
   color: #000;
 }
@@ -2120,23 +2106,47 @@ form.search-form {
   background: #323c8d !important;
   color: white;
 }
-.ajax-select-results .ajax-select-result:nth-child(2n+1) a {
+.ajax-select-result {
+  background: #fff;
+  font-size: 1.2em;
+}
+.ajax-select-result:nth-child(2n+1) a {
   background: #fff;
 }
-.ajax-select-results .ajax-select-result:nth-child(2n) a {
+.ajax-select-result:nth-child(2n) a {
   background: #efefef;
+}
+.last-used .search-results {
+  border: 1px solid #323c8d;
+  border-top: none;
+  overflow: auto;
+  max-height: 260px;
+  background: #9297c4;
+}
+.last-used p {
+  background: #323c8d;
+  color: #fff;
+  padding: 10px;
+}
+.search-section .last-used {
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.25);
 }
 .main-table {
   padding: 0 10px;
 }
 .main-table table {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   font-size: 12px;
 }
 .main-table .day table {
   border: 1px solid #bfbfbf;
   border-top: transparent;
   border-bottom: transparent;
+  display: block;
+  background: #fff;
+  position: relative;
 }
 .main-table-wrap {
   padding-bottom: 30px;
@@ -2154,18 +2164,17 @@ form.search-form {
 }
 .emptyDay {
   height: 40px;
-  background: #fff;
+  position: static !important;
 }
 .emptyDay:before {
   content: 'Нет занятий';
-  color: #20D840;
   text-align: center;
   font-size: 15px;
   text-transform: uppercase;
   line-height: 2.6;
   position: absolute;
   top: 0;
-  bottom: 0;
+  height: 40px;
   left: 0;
   right: 0;
 }
@@ -2202,14 +2211,11 @@ form.search-form {
 }
 .week-name:after,
 .week-name:before {
-  top: 10px;
-  background-size: contain;
-  background-repeat: no-repeat;
+  top: 6px;
   content: '';
   position: absolute;
   width: 48px;
   height: 25px;
-  background-position: 50% 50%;
 }
 .day > table tr {
   display: block;
@@ -2345,7 +2351,7 @@ form.search-form {
   content: '8:00 – 9:30';
 }
 .day > table tr > td.haveLess.less-2:after {
-  content: '9:40 – 11:20';
+  content: '9:40 – 11:10';
 }
 .day > table tr > td.haveLess.less-3:after {
   content: ' 11:20 – 12:50';
@@ -2368,35 +2374,8 @@ form.search-form {
 .day > table tr.currentLess > td.haveLess:after {
   color: #5E60F9;
 }
-.date-wrap {
-  display: inline-block;
-  float: right;
-  text-align: center;
-  padding: 4px 8px;
-  height: 57px;
-  overflow: hidden;
-  border-left: 1px solid #3c7998;
-  line-height: 0.9;
-  font-size: 10px;
-}
-.date-wrap .time {
-  display: inline-block;
-  font-size: 27px;
-}
-.date-wrap .hours {
-  display: inline-block;
-}
-.date-wrap .minutes {
-  display: inline-block;
-}
-.date-wrap .date {
-  height: 9px;
-  overflow: hidden;
-}
 .head {
-  font-family: "CenturyGothicRegular";
   overflow: hidden;
-  font-weight: 300;
   color: #fff;
   background: #323c8d;
   width: 100%;
@@ -2407,19 +2386,16 @@ form.search-form {
 .head * {
   transition: 0.3s;
 }
-.logo {
-  background-image: url(http://magtu.ru/images/brandbook/logo-no-shadow.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 104px;
-  height: 47px;
-  display: inline-block;
-  float: left;
+.head .group-name:after {
+  content: '';
+  background: url(/images/search.png) 50% 50% no-repeat / contain;
+  display: none;
   position: absolute;
-  left: -22px;
-  opacity: 0.14;
-  z-index: -1;
+  top: 6px;
+  right: 20px;
+  width: 25px;
+  height: 40px;
+  opacity: 0.6;
 }
 .group-name {
   cursor: pointer;
@@ -2439,61 +2415,23 @@ form.head-search-form {
   position: relative;
   border-right: 1px solid #3c7998;
 }
-form.head-search-form input.select2-search__field {
-  width: 100% !important;
-}
-form.head-search-form .select2-container {
-  width: 220px !important;
-  float: left;
-}
-form.head-search-form .select2-container:nth-child(2) {
-  margin-right: 10px;
-}
-form.head-search-form .select2-container--default .select2-selection--multiple {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-form.head-search-form .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border: transparent;
-}
-form.head-search-form .select2-container--default .select2-selection--multiple {
-  border: transparent;
-}
-form.head-search-form .select2-dropdown {
-  background-color: #1A5573;
-  border: transparent;
-  color: #fff;
-}
 .head-min {
-  font-family: "CenturyGothicRegular";
   display: none;
   overflow: hidden;
   color: #fff;
-  background-color: #1A5573;
+  background-color: #323c8d;
   position: fixed;
   width: 100%;
   max-width: 1170px;
   top: 0;
   z-index: 5;
-  font-weight: 300;
-}
-.head-min .date-wrap {
-  height: 36px;
-  padding-top: 5px;
 }
 .head-min .group-name {
   font-size: 20px;
-  padding: 4px 0 0;
+  padding: 4px 0px;
   text-align: center;
   float: none;
-}
-.head-min .time {
-  font-size: 17px;
-}
-.head-min .weekday {
-  font-size: 13px;
-}
-.head-min .date {
-  height: 0;
+  height: auto;
 }
 .editAreaWrap {
   display: none;
@@ -2567,31 +2505,18 @@ textarea.edit-area {
   .day {
     margin: 11px 0px 0;
   }
-  form.head-search-form {
-    float: none;
-    text-align: center;
-    width: 100%;
-    display: none;
-    position: relative;
-    margin: 0;
-    border-right: transparent;
-    border-top: 1px solid #356984;
-  }
-  .select2-container .select2-selection--multiple {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 35px;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  form.head-search-form .select2-container {
+  .head-search-form {
     width: 100% !important;
+    display: none;
+    border-top: 1px solid #356984;
   }
   .group-name {
     float: none;
     text-align: center;
     border: transparent;
+  }
+  .head .group-name:after {
+    display: block;
   }
 }
 @media (max-width: 1200px) {
@@ -2600,14 +2525,6 @@ textarea.edit-area {
   }
 }
 @media (max-width: 500px) {
-  .group-search {
-    border-radius: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-  }
   .search-section {
     margin: 0;
     height: 100%;

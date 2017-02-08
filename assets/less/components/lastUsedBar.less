@@ -1,0 +1,45 @@
+.header-lastused {
+  background: #323c8d;
+  padding: 4px 10px 0;
+  .lu-item {
+    display: inline-block;
+    margin: 0 2px;
+    text-decoration: none;
+    font-size: 0.8em;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    position: relative;
+    &:active {
+      position: relative;
+      top: 2px;
+    }
+  }
+  a {
+    background: #5b63a5;
+    display: inline-block;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 30px 2px 5px;
+    text-decoration: none;
+    float: left;
+    &:hover {
+      background: #7b81b7;
+    }
+  }
+  .close-btn:hover {
+    background-color: hsla(233, 25%, 73%, 1);
+  }
+  .close-btn {
+    background: #8389b5 url(/images/icons/cross.svg) no-repeat 50% 50%;
+    display: inline-block;
+    width: 22px;
+    border-radius: 0 4px 4px 0;
+    margin-left: 6px;
+    vertical-align: middle;
+    background-size: 60%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+  }
+}
