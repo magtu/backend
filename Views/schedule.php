@@ -100,6 +100,10 @@
                 <?
             }
             ?>
+            <div id="vk_community_messages"></div>
+            <script type="text/javascript">
+                VK.Widgets.CommunityMessages("vk_community_messages", 114684821, {expanded: "1",tooltipButtonText: "Свяжитесь с нами!"});
+            </script>
         </div>
     </div>
 </main>
