@@ -20,7 +20,7 @@ abstract class EventSubject {
         return static::reverseName().'s';
     }
 
-    public static function list() {
+    public static function all() {
         $q = 'SELECT id, name FROM '.static::subjectTable();
 
         $smbt = \App\PdoHelper::get()->query($q);
@@ -46,7 +46,7 @@ abstract class EventSubject {
     {
         $q = 'SELECT `id`, `name`, `url` FROM `'.static::subjectTable().'` WHERE `id` = :id';
         $smbt = \App\PdoHelper::get()->prepare($q);
-        $smbt->execute(array('id' => $id));
+        $smbt->execute(compact('id'));
         $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
         if (count($res) == 0) {
             throw new \Exception(static::subjectName()." with id=$id not found", 404);
@@ -68,9 +68,10 @@ abstract class EventSubject {
             `subgroup`,
             `teacher_id`, (SELECT `name` FROM `teachers` WHERE `id` = e.`teacher_id`) `teacher`,
             `location`
-            FROM event_templates e WHERE `'.static::subjectId().'` = '.$id.'
+            FROM event_templates e WHERE `'.static::subjectId().'` = :id
             ORDER BY `week_id`, `day_id`, `event_index`, `subgroup`';
-        $smbt = \App\PdoHelper::get()->query($q);
+        $smbt = \App\PdoHelper::get()->prepare($q);
+        $smbt->execute(compact('id'));
         $db_res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
         if (count($db_res) == 0) {
             throw new \Exception(static::subjectName()." with id=$id not found", 404);
@@ -117,8 +118,9 @@ abstract class EventSubject {
         return $result;
     }
     public static function scheduleUpdates($id) {
-        $q = 'SELECT `updated_at` FROM `'.static::subjectTable().'` WHERE `id`='.$id;
-        $smbt = \App\PdoHelper::get()->query($q);
+        $q = 'SELECT `updated_at` FROM `'.static::subjectTable().'` WHERE `id`=:id';
+        $smbt = \App\PdoHelper::get()->prepare($q);
+        $smbt->execute(compact('id'));
         $res = $smbt->fetch(\PDO::FETCH_ASSOC);
         if (!$res){
             throw new \Exception(static::subjectName()." with id=$id not found", 404);
