@@ -39,8 +39,13 @@ class Router {
 			\Views\ViewHelper::render('matches', $search_result);
 			return;
 		}
-		// api/v1/...
+		// api/...
 		if (count($uri_parts) >= 2 and $uri_parts[0]=='api') {
+			if ($uri_parts[1] == 'tg') {
+				$tg = new \Api\tg\ApiController();
+				$tg->process(array_slice($uri_parts, 2));
+				return;
+			}
 			$prefix = substr($uri_parts[1],0,1);
 			$version = intval(substr($uri_parts[1], 1));
 			$classname = 'Api\\v'.$version.'\\ApiController';
