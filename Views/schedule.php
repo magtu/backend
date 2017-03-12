@@ -102,13 +102,18 @@
             ?>
             <div id="vk_community_messages"></div>
             <script type="text/javascript">
-                VK.Widgets.CommunityMessages("vk_community_messages", 114684821, {expanded: "1",tooltipButtonText: "Свяжитесь с нами!"});
+                VK.Widgets.CommunityMessages("vk_community_messages", 114684821, {
+                    disableButtonTooltip : "1"
+                });
             </script>
         </div>
     </div>
 </main>
 <footer>
     <b>Внимание!</b> Возможны ошибки в расписании. Напишите, если обнаружили неточности: <a href="https://vk.com/topic-114684821_33345488" target="_blank">Официальная группа Вконтакте</a>
+    <div id="vkshare"><script type="text/javascript">
+        document.write(VK.Share.button(false,{type: "round", text: "Поделиться расписанием"}));
+    </script></div>
 </footer>
 <script>
     myAjaxSelect($('.ajax-select'));

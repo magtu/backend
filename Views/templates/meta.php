@@ -31,4 +31,4 @@
 <meta name="theme-color" content="#1A5573">
 <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=Z*fXNNj0X4TqohkrxTFdMSN*l8z6tO1igT9UrB2oo2t9mu4GumjXVQMkLzNzHI6tjaD/UjmFsD*lttKCdAGZ5EZiAAg18NIPxYWqlnI0IEclP4KJ3YltgDBhv7r*iyEGWcsmPqPm8BRPxwnndHsHWceOVi*CJewJvYL24*2BtBc-&pixel_id=1000076630';</script>
 <script type="text/javascript" src="//vk.com/js/api/openapi.js?139"></script>
-
+<script type="text/javascript" src="https://vk.com/js/api/share.js?94" charset="windows-1251"></script>

@@ -22,7 +22,6 @@ abstract class EventSubject {
 
     public static function all() {
         $q = 'SELECT id, name FROM '.static::subjectTable();
-
         $smbt = \App\PdoHelper::get()->query($q);
         $res = $smbt->fetchAll(\PDO::FETCH_ASSOC);
         for ($i=0;$i<count($res);$i++){
