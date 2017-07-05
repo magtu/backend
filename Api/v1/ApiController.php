@@ -108,7 +108,7 @@ class ApiController extends \Api\BaseApiController {
         $message = array(
             'code' => $code,
             'message' => $string,
-            'docs' => 'https://gitlab.com/gordin.mitya/schedule/wikis/home'
+            'docs' => 'https://github.com/magtu/backend/'
         );
         $this->jsonResult($message);
         die();
