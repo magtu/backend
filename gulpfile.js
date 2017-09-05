@@ -73,7 +73,7 @@ gulp.task('dist', ['javascript', 'less', 'stylesheets'], function() {
     gulp.src(['build/css/stylesheets-build.css', 'build/css/less-build.css'])
         //.pipe(autoprefixer({browsers: ['last 10 versions'],cascade: false}))
         //.pipe(csso())
-        .pipe(concat('template_styles.css'))
+        .pipe(concat('template_styles_1.css'))
         .pipe(gulp.dest('./public/css'));
 
     return gulp.src('build/js/javascript-build.js')

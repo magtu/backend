@@ -36,5 +36,8 @@
         }
     }
 </script>
+<!--<footer>-->
+<!--    <a href="/dev">Авторы сайта</a>-->
+<!--</footer>-->
 </body>
 </html>

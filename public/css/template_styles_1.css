@@ -2428,7 +2428,6 @@ form.head-search-form {
   background-color: #323c8d;
   position: fixed;
   width: 100%;
-  max-width: 1170px;
   top: 0;
   z-index: 5;
 }
