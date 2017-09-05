@@ -4,7 +4,7 @@ namespace Api\v2;
 
 class ApiController extends \Api\BaseApiController {
     protected function getDoc() {
-        return "https://github.com/gordinmitya/magtu";
+        return "https://github.com/magtu/backend/";
     }
 
     public function process($uri_paths) {
