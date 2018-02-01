@@ -67,6 +67,7 @@
     "name":"АБб-14-2",
     "url":"АБб-14-2",
     "type":"group",
+    "updated_at":1487011960,
     "schedule":[
         {
             "week_id":1,
