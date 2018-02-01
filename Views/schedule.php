@@ -1,12 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <? include_once("templates/meta.php"); ?>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/myAjaxSelect.js"></script>
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/Global.js"></script>
-    <script src="js/Main.js"></script>
 </head>
 <body>
 <main>
@@ -102,27 +97,42 @@
             ?>
             <div id="vk_community_messages"></div>
             <script type="text/javascript">
-                VK.Widgets.CommunityMessages("vk_community_messages", 114684821, {
-                    disableButtonTooltip : "1"
-                });
+                function vkMessages() {
+                    VK.Widgets.CommunityMessages("vk_community_messages", 114684821, {
+                        disableButtonTooltip: "1"
+                    });
+                }
             </script>
         </div>
     </div>
 </main>
 <footer>
-    <b>Внимание!</b> Возможны ошибки в расписании. Напишите, если обнаружили неточности: <a href="https://vk.com/topic-114684821_33345488" target="_blank">Официальная группа Вконтакте</a>
+    <br><b>Внимание!</b> Возможны ошибки в расписании. Напишите, если обнаружили неточности: <a href="https://vk.com/topic-114684821_33345488" target="_blank" rel="noopener">Официальная группа Вконтакте</a>
     <div id="vkshare"><script type="text/javascript">
-        document.write(VK.Share.button(false,{type: "round", text: "Поделиться расписанием"}));
+            function vkShare () {
+                document.write(VK.Share.button(false,{type: "round", text: "Поделиться расписанием"}));
+            }
     </script></div>
 </footer>
+</body>
+<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=Z*fXNNj0X4TqohkrxTFdMSN*l8z6tO1igT9UrB2oo2t9mu4GumjXVQMkLzNzHI6tjaD/UjmFsD*lttKCdAGZ5EZiAAg18NIPxYWqlnI0IEclP4KJ3YltgDBhv7r*iyEGWcsmPqPm8BRPxwnndHsHWceOVi*CJewJvYL24*2BtBc-&pixel_id=1000076630';</script>
+<script type="text/javascript" onload="vkMessages" src="//vk.com/js/api/openapi.js?139"></script>
+<script type="text/javascript" onload="vkShare" src="https://vk.com/js/api/share.js?94" charset="windows-1251"></script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/myAjaxSelect.js"></script>
+<script src="js/jquery.scrollTo.min.js"></script>
+<script src="js/Global.js"></script>
+<script src="js/Main.js"></script>
 <script>
     myAjaxSelect($('.ajax-select'));
 
     //==============================
     //   LAST SCHEDULES VIEWER
     //==============================
-
-    if (localStorage.getItem("lastUsed") !== null) {
+    var has_ads = false;
+    localStorage.setItem("ad_removed", 1);
+    if (localStorage.getItem("lastUsed") !== null || has_ads) {
         var lastUsed = JSON.parse(localStorage.getItem("lastUsed"));
         if (lastUsed[0] != "<?=$data['name']?>" || lastUsed[1] !== null) { //Не является ли текущая страница единственной в закладках
             $(".last-used").append("<div class='header-lastused'></div>");
@@ -131,6 +141,11 @@
                     $(".header-lastused").append('<div class="lu-item clearfix"><a href="/' + lastUsed[i] + '">' + lastUsed[i] + '</a><div class="close-btn" onclick="removeLastUsed($(this))"></div></div>');
             }
         }
+        var ad_href = 'https://vk.com/drama_mgn?w=wall-8293739_9299';
+
+        if (localStorage.getItem("ad_removed") != 1) {
+            $(".header-lastused").append('<div id="item007" class="lu-item clearfix"><a href="' + ad_href + '" target="_blank">11 декабря 18:30</a><div class="close-btn" onclick="removeAd()"></div></div>')
+        }
     }
     function removeLastUsed(btnEl){
         var ulItem = btnEl.parents(".lu-item");
@@ -138,6 +153,11 @@
         var lastUsedData = JSON.parse(localStorage.getItem("lastUsed"));
         lastUsedData.splice(lastUsedData.indexOf(name), 1);
         localStorage.setItem("lastUsed", JSON.stringify(lastUsedData));
+        ulItem.detach();
+    }
+    function removeAd(){
+        var ulItem = $("#item007");
+        localStorage.setItem("ad_removed", 1);
         ulItem.detach();
     }
 
@@ -161,5 +181,4 @@
     }
 </script>
 
-</body>
 </html>

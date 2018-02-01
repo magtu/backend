@@ -18,7 +18,7 @@ var rename = require('gulp-rename')
 var paths = {
     javascript: [
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/select2/dist/js/select2.min.js',
+        // 'bower_components/select2/dist/js/select2.min.js',
         //'bower_components/jquery.inputmask/dist/jquery.inputmask.bundle.js',
         //'bower_components/owl.carousel/dist/owl.carousel.js',
         'bower_components/jquery.scrollTo/jquery.scrollTo.min.js',
@@ -29,7 +29,7 @@ var paths = {
         'assets/less/application.less'
     ],
     stylesheets: [
-        'bower_components/select2/dist/css/select2.css'
+        // 'bower_components/select2/dist/css/select2.css'
         //'bower_components/owl.carousel/src/css/*.css'
     ]
 };
@@ -71,9 +71,9 @@ gulp.task('stylesheets', function() {
 
 gulp.task('dist', ['javascript', 'less', 'stylesheets'], function() {
     gulp.src(['build/css/stylesheets-build.css', 'build/css/less-build.css'])
-        //.pipe(autoprefixer({browsers: ['last 10 versions'],cascade: false}))
-        //.pipe(csso())
-        .pipe(concat('template_styles_1.css'))
+        .pipe(autoprefixer({browsers: ['last 10 versions'],cascade: false}))
+        .pipe(csso())
+        .pipe(concat('template_styles_2.css'))
         .pipe(gulp.dest('./public/css'));
 
     return gulp.src('build/js/javascript-build.js')

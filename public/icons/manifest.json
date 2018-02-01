@@ -1,5 +1,6 @@
 {
- "name": "App",
+ "name": "Расписание МГТУ им. Носова",
+ "short_name": "Расписание",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

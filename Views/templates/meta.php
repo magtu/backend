@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta name="viewport" content="user-scalable='no', width=device-width, maximum-scale=3>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="imagetoolbar" content="no"/>
 <meta http-equiv="msthemecompatible" content="no"/>
@@ -26,6 +26,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="msapplication-starturl" content="http://xn--80agz0af.xn--p1ai/" />
+<meta name="short_name" content="Расписание">
 <meta name="application-name" content="Расписание МГТУ им. Носова"/>
 <meta name="msapplication-tooltip" content="Расписание МГТУ им. Носова"/>
 <?if(isset($data['name'])){?>
@@ -33,14 +34,11 @@
 <?}else{?>
 <meta name="description" content="Расписание занятий для студентов МГТУ им. Носова. Удобный просмотр с любых устройств!">
 <?}?>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
-<link href="css/template_styles_1.css" type="text/css" rel="stylesheet">
+<link href="css/template_styles_2.css" type="text/css" rel="stylesheet">
 <?if(isset($data['name'])){?>
 <title><?=$data['name']?> – Расписание МГТУ им. Носова</title>
 <?}else{?>
 <title>Расписание МГТУ им. Носова</title>
 <?}?>
 <meta name="theme-color" content="#323c8d">
-<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=Z*fXNNj0X4TqohkrxTFdMSN*l8z6tO1igT9UrB2oo2t9mu4GumjXVQMkLzNzHI6tjaD/UjmFsD*lttKCdAGZ5EZiAAg18NIPxYWqlnI0IEclP4KJ3YltgDBhv7r*iyEGWcsmPqPm8BRPxwnndHsHWceOVi*CJewJvYL24*2BtBc-&pixel_id=1000076630';</script>
-<script type="text/javascript" src="//vk.com/js/api/openapi.js?139"></script>
-<script type="text/javascript" src="https://vk.com/js/api/share.js?94" charset="windows-1251"></script>
+
